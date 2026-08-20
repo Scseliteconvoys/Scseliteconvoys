@@ -20,6 +20,7 @@
 ## Estado
 - **0.6.19 — ACTUAL**
 - **0.6.18 — FINALIZADO**
+- ## Cambios de 0.6.19
 - 🔒 Al abrir la web, aparece Iniciar sesión.
 👤 No aparece Saske como usuario activo.
 🧹 Se limpia cualquier sesión anterior guardada automáticamente.
