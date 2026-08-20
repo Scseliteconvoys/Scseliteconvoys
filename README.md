@@ -20,3 +20,7 @@
 🎮 TruckersMP - Simulación 2
 💬 Reunión: 27/08/2026 a las 11:00 · Programado en Discord
 ✏️ Modificar / Guardar actualiza el evento existente en lugar de crear otro duplicado.
+
+## Cambios de 0.6.21 V3
+
+He quitado solo la imagen del logo que no se veía y he mantenido exactamente la misma versión: Beta 0.6.21. 
