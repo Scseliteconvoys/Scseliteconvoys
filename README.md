@@ -108,3 +108,17 @@ También he mantenido el resto de la web y he comprobado la sintaxis de los arch
 También añadí los controles de pausa en la barra superior y en el panel de radio, y mejoré la reproducción dentro del Hub usando un pequeño proxy local de audio para evitar problemas de carga directa del stream.
 
 La descarga mantiene la Beta 0.6.24.
+
+
+
+# S&C Elite ETS2 Hub · Beta 0.6.24
+**Cambios de Destacados:**
+
+🧹 Quitado lo de mostrar la canción en la radio.
+✅ Mantengo la confirmación al iniciar sesión con:
+CONFIRMACIÓN · Operación completada · Sesión iniciada · Entendido
+🌐 Añadido un desplegable de idiomas en la barra superior:
+🇪🇸 Español · 🇬🇧 English · 🇫🇷 Français · 🇵🇹 Português · 🇮🇹 Italiano · 🟨🟥 Català
+💾 El idioma seleccionado se guarda en el equipo.
+🔒 No he cambiado la versión ni el resto de la estructura de la web.
+✅ He comprobado la sintaxis del JavaScript.
