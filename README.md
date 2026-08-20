@@ -5,7 +5,7 @@
 - **0.6.18 — FINALIZADO**
 
 # S&C Elite ETS2 Hub · Beta 0.6.21 V3
-Cambios Destacados:
+**Cambios Destacados:**
 
 - Nuevo apartado **Mercado** dentro de **COMUNIDAD**.
 - Nueva sección **Aseguradora** adaptada a **S&C Elite**.
@@ -16,7 +16,7 @@ Cambios Destacados:
 - 0.6.18 archivada como **FINALIZADO**.
 
 # S&C Elite ETS2 Hub · Beta 0.6.21 V2
-Cambios Destacados:
+**Cambios Destacados:**
 
 📅 Fecha: 27/08/2026
 📍 Ruta: Valencia → Soria
@@ -26,13 +26,13 @@ Cambios Destacados:
 
 # S&C Elite ETS2 Hub · Beta 0.6.21 V3
 
-Cambios Destacados:
+**Cambios Destacados:**
 
 He quitado solo la imagen del logo que no se veía y he mantenido exactamente la misma versión: Beta 0.6.21. 
 
 # S&C Elite ETS2 Hub · Beta 0.6.22
 
-Cambios Destacados:
+**Cambios Destacados:**
 
 **Y Se mantienen los carteles de mantenimiento de:**
 
@@ -57,7 +57,7 @@ No he tocado el resto de la web.
 
 # S&C Elite ETS2 Hub · Beta 0.6.23 
 
-Cambios de Destacados:
+**Cambios de Destacados:**
 
 
 🛒 Mercado
@@ -71,3 +71,32 @@ Frase informativa de mantenimiento.
 Cuadro de mantenimiento rojo.
 PROXIMAMENTE en rojo.
 Frase informativa de mantenimiento.
+
+# S&C Elite ETS2 Hub · Beta 0.6.24
+**Cambios de Destacados:**
+
+
+Versiones y Betas
+
+0.6.18 — FINALIZADO
+0.6.19 — FINALIZADO
+0.6.20 — FINALIZADO
+0.6.21 — FINALIZADO
+0.6.22 — FINALIZADO
+0.6.23 — FINALIZADO
+0.6.24 — EN CURSO
+Nuevo diseño añadido
+
+He adaptado para S&C Elite el estilo de las dos capturas:
+
+✅ Confirmación de sesión
+Ahora aparece una tarjeta de confirmación con:
+CONFIRMACIÓN
+Operación completada
+Sesión iniciada.
+Botón Entendido.
+
+📻 Cabecera de radio S&C Elite FM · 9.90 FM
+Con el estilo compacto de la captura, estado EN VIVO · EN DIRECTO, controles de radio, volumen y contador de usuarios.
+
+También he mantenido el resto de la web y he comprobado la sintaxis de los archivos JavaScript.
