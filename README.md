@@ -14,7 +14,8 @@
 - 0.6.18 archivada como **FINALIZADO**.
 
 
-Beta 0.6.21 v2
+Beta 0.6.21 V2
+##Cambios de 0.6.21 V2 
 
 📅 Fecha: 27/08/2026
 📍 Ruta: Valencia → Soria
