@@ -46,3 +46,15 @@ Eliminado cualquier duplicado de Carlos/Saske.
 Al cambiar de perfil, también se actualiza el cargo mostrado en el panel lateral.
 
 No he tocado el resto de la web.
+
+
+## Cambios de 0.6.22 
+🛒 MERCADO WEB EN MANTENIMIENTO · PROXIMAMENTE
+Mensaje informativo dentro del cuadro rojo.
+
+🛡️ ASEGURADORA EN MANTENIMIENTO · PROXIMAMENTE
+Mensaje informativo dentro del cuadro rojo.
+
+No he cambiado la distribución, botones, perfiles, usuarios, evento ni el resto de la web.
+
+La versión sigue siendo 0.6.22.
