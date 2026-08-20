@@ -99,3 +99,12 @@ Botón Entendido.
 Con el estilo compacto de la captura, estado EN VIVO · EN DIRECTO, controles de radio, volumen y contador de usuarios.
 
 También he mantenido el resto de la web y he comprobado la sintaxis de los archivos JavaScript.
+
+
+▶️ Reproducir → Reproduciendo online en verde
+Ⅱ Pausa → Radio pausada en amarillo
+■ Detener → Radio Desconectada con éxito en rojo
+
+También añadí los controles de pausa en la barra superior y en el panel de radio, y mejoré la reproducción dentro del Hub usando un pequeño proxy local de audio para evitar problemas de carga directa del stream.
+
+La descarga mantiene la Beta 0.6.24.
