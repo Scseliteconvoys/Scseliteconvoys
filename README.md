@@ -24,3 +24,10 @@
 ## Cambios de 0.6.21 V3
 
 He quitado solo la imagen del logo que no se veía y he mantenido exactamente la misma versión: Beta 0.6.21. 
+
+## Cambios de 0.6.22 V3
+
+**Y se mantienen los carteles de mantenimiento de:**
+
+🛒 Mercado Web
+🛡️ Aseguradora
