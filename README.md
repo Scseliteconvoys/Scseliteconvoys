@@ -76,8 +76,7 @@ Frase informativa de mantenimiento.
 **Cambios de Destacados:**
 
 
-Versiones y Betas
-
+## Estado
 0.6.18 — FINALIZADO
 0.6.19 — FINALIZADO
 0.6.20 — FINALIZADO
