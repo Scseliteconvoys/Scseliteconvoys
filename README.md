@@ -4,7 +4,7 @@
 - **0.6.21 — ACTUAL**
 - **0.6.18 — FINALIZADO**
 
-## Cambios de 0.6.21
+## Cambios de 0.6.21 V1
 - Nuevo apartado **Mercado** dentro de **COMUNIDAD**.
 - Nueva sección **Aseguradora** adaptada a **S&C Elite**.
 - Pólizas Básico, Normal · RC ampliada y Todo riesgo.
@@ -31,3 +31,17 @@ He quitado solo la imagen del logo que no se veía y he mantenido exactamente la
 
 🛒 Mercado Web
 🛡️ Aseguradora
+
+Cambio de perfil
+
+Saske → Dueño de la Empresa - APP
+Carlos → Dirección/Manager
+
+Usuarios
+
+Saske → Dueño de la empresa
+Carlos → Dirección-Manager
+Eliminado cualquier duplicado de Carlos/Saske.
+Al cambiar de perfil, también se actualiza el cargo mostrado en el panel lateral.
+
+No he tocado el resto de la web.
