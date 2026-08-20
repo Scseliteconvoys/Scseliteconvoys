@@ -27,10 +27,11 @@ He quitado solo la imagen del logo que no se veía y he mantenido exactamente la
 
 ## Cambios de 0.6.22 
 
-**Y se mantienen los carteles de mantenimiento de:**
+**Y Se mantienen los carteles de mantenimiento de:**
 
 🛒 Mercado Web
 🛡️ Aseguradora
+
 
 Cambio de perfil
 
