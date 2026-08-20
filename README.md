@@ -122,3 +122,16 @@ CONFIRMACIÓN · Operación completada · Sesión iniciada · Entendido
 💾 El idioma seleccionado se guarda en el equipo.
 🔒 No he cambiado la versión ni el resto de la estructura de la web.
 ✅ He comprobado la sintaxis del JavaScript.
+
+
+Sí, totalmente. Queda mucho mejor de la más reciente a la más antigua. He ordenado el apartado Versiones y Betas así:
+
+0.6.24 — EN CURSO
+0.6.23 — FINALIZADO
+0.6.22 — FINALIZADO
+0.6.21 — FINALIZADO
+0.6.20 — FINALIZADO
+0.6.19 — FINALIZADO
+0.6.18 — FINALIZADO
+
+He tocado únicamente ese bloque y he mantenido el resto de la Beta 0.6.24.
