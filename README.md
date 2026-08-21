@@ -138,7 +138,7 @@ He tocado únicamente ese bloque y he mantenido el resto de la Beta 0.6.24.
 
 
 
-# S&C Elite ETS2 Hub · Beta 0.6.24 
+# S&C Elite ETS2 Hub · Beta 0.6.25
 
 **Corregimos fallos importantes para arreglar:**
 
