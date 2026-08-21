@@ -1,5 +1,7 @@
 # S&C Elite ETS2 Hub · Beta 0.6.24
-**Corregimos fallos importantes para arreglar:**
+**Cambios de Destacados:**
+
+
 
 Hecho. He usado la 0.6.23 como base y he pasado a la Beta 0.6.24, tocando únicamente lo que me pediste para no romper la web.
 
