@@ -33,7 +33,7 @@ Con el estilo compacto de la captura, estado EN VIVO · EN DIRECTO, controles de
 
 También he mantenido el resto de la web y he comprobado la sintaxis de los archivos JavaScript.
 
-# S&C Elite ETS2 Hub · Beta 0.6.25
+# S&C Elite ETS2 Hub · Beta 0.6.25 REPARACION!!
 **Cambios de Destacados:**
 
 ✅ Confirmación al iniciar sesión
