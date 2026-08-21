@@ -15,8 +15,9 @@ Versiones y Betas
 0.6.21 — FINALIZADO
 0.6.22 — FINALIZADO
 0.6.23 — FINALIZADO
-0.6.24 — EN CURSO
-Nuevo diseño añadido
+0.6.24 — FINALIZADO
+0.6.25 — EN CURSO. 
+
 
 He adaptado para S&C Elite el estilo de las dos capturas:
 
