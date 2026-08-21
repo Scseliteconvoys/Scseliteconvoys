@@ -135,3 +135,24 @@ Sí, totalmente. Queda mucho mejor de la más reciente a la más antigua. He ord
 0.6.18 — FINALIZADO
 
 He tocado únicamente ese bloque y he mantenido el resto de la Beta 0.6.24.
+
+
+
+# S&C Elite ETS2 Hub · Beta 0.6.24 
+
+**Corregimos fallos importantes para arreglar:**
+
+🌐 El selector de idiomas ahora cambia la interfaz entre Español, English, Français, Português, Italiano y Català.
+🚪 Cerrar sesión ahora fuerza realmente el cierre, elimina la sesión activa y vuelve a Iniciar sesión.
+🌙/☀️ Modo oscuro / claro queda operativo y conserva la elección.
+📻 Radio: he vuelto a enlazar los botones para que Reproducir, Pausa y Detener funcionen directamente sobre el reproductor.
+📋 Versiones y Betas quedan ordenadas de más reciente a más antigua:
+0.6.24 — EN CURSO
+0.6.23 — FINALIZADO
+0.6.22 — FINALIZADO
+0.6.21 — FINALIZADO
+0.6.20 — FINALIZADO
+0.6.19 — FINALIZADO
+0.6.18 — FINALIZADO
+
+He comprobado también la sintaxis de los scripts y la integridad del ZIP.
