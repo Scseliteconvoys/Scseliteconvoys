@@ -1,0 +1,1644 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S&C Elite ETS2 Hub · Beta 0.6.26.2</title>
+<style>
+:root{
+--bg:#07111d;--top:#081422;--side:#0b1726;--panel:#0d1b2c;--panel2:#0a1625;--line:#19334b;
+--muted:#7f95aa;--text:#edf6ff;--accent:#ffb318;--accent2:#66c9ff;--green:#54d69f;--red:#ff6d77;
+--shadow:0 12px 35px rgba(0,0,0,.24)
+}
+body[data-theme="light"]{
+--bg:#eef4f8;--top:#ffffff;--side:#f4f8fb;--panel:#ffffff;--panel2:#f7fafc;--line:#cbd9e5;
+--muted:#5f7486;--text:#152332;--accent:#f5a900;--accent2:#168fd1;--green:#15966a;--red:#d83e4d;
+--shadow:0 10px 28px rgba(24,45,64,.12)
+}
+body[data-theme="light"] .topbar{background:rgba(255,255,255,.96)}
+body[data-theme="light"] .side{background:#f2f7fb}
+body[data-theme="light"] .main{background:linear-gradient(180deg,#f6faff 0,#edf4f8 100%)}
+body[data-theme="light"] .right{background:#f5f9fc}
+body[data-theme="light"] .chat{background:#ffffff}
+body[data-theme="light"] .panel,.panel{color:var(--text)}
+body[data-theme="light"] .card,body[data-theme="light"] .metric,body[data-theme="light"] .profilecard,body[data-theme="light"] .radioMini,body[data-theme="light"] .status,body[data-theme="light"] .authbox{background:#ffffff}
+body[data-theme="light"] .input{background:#f8fbfd;color:#152332;border-color:#b9ccd9}
+.themeToggle{border:1px solid #29455e;background:#12263a;color:#ddebF7;padding:8px 11px;border-radius:10px;cursor:pointer;font-weight:850}
+body[data-theme="light"] .themeToggle{background:#ffffff;color:#152332;border-color:#b7cad7}
+.languagePicker{position:relative;z-index:80}
+.languageTrigger{display:flex;align-items:center;gap:8px;min-width:148px;border:1px solid #29455e;background:#12263a;color:#ddebF7;padding:8px 10px;border-radius:10px;cursor:pointer;font-weight:850;text-align:left}
+.languageTrigger:hover,.languageTrigger[aria-expanded="true"]{border-color:#58bff2;background:#17334b}.languageFlag{font-size:17px;line-height:1}.languageName{flex:1}.languageChevron{font-size:11px;color:#8fb7cf;transition:transform .18s ease}.languageTrigger[aria-expanded="true"] .languageChevron{transform:rotate(180deg)}
+.languageMenu{position:absolute;right:0;top:calc(100% + 8px);width:190px;padding:6px;background:#0b1b2a;border:1px solid #294b64;border-radius:12px;box-shadow:0 18px 42px rgba(0,0,0,.38)}.languageMenu[hidden]{display:none}
+.languageOption{width:100%;display:flex;align-items:center;gap:10px;border:0;border-radius:8px;padding:9px 10px;background:transparent;color:#ddebF7;cursor:pointer;font-size:12px;font-weight:750;text-align:left}.languageOption:hover,.languageOption[aria-selected="true"]{background:#183650;color:#fff}.languageOption[aria-selected="true"]::after{content:"✓";margin-left:auto;color:#ffce66;font-weight:950}
+body[data-theme="light"] .languageTrigger{background:#ffffff;color:#152332;border-color:#b7cad7}body[data-theme="light"] .languageMenu{background:#ffffff;border-color:#b7cad7;box-shadow:0 18px 42px rgba(24,45,64,.18)}body[data-theme="light"] .languageOption{color:#152332}body[data-theme="light"] .languageOption:hover,body[data-theme="light"] .languageOption[aria-selected="true"]{background:#e7f1f7}
+
+body[data-theme="light"] .topradio{background:linear-gradient(180deg,#eef7fc,#e4f0f8)}
+body[data-theme="light"] .navbtn{color:#496377}
+body[data-theme="light"] .navbtn:hover,body[data-theme="light"] .navbtn.active,body[data-theme="light"] .menuitem:hover,body[data-theme="light"] .menuitem.active{background:#e7f1f7;color:#152332;border-color:#bfd2df}
+body[data-theme="light"] .table th{color:#5f7588}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#07111d 0,#091827 100%);color:var(--text);height:100vh;overflow:hidden}
+button,input,select{font:inherit}
+.app{height:100vh;display:grid;grid-template-rows:70px 1fr}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 26px;border-bottom:1px solid var(--line);background:rgba(7,17,29,.96);box-shadow:0 2px 20px rgba(0,0,0,.22)}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:40px;height:40px;border-radius:50%;object-fit:cover;display:block;box-shadow:0 0 0 1px #355d78,0 0 18px rgba(91,166,223,.22)}
+.brand h1{margin:0;font-size:17px}.brand small{display:block;color:var(--muted);font-weight:700;margin-top:2px}
+.topright{display:flex;align-items:center;gap:16px}.online{font-size:12px;color:#72ddb5}.userpill{display:flex;gap:9px;align-items:center;color:#a9bccd}.avatar{width:31px;height:31px;border-radius:9px;background:#143655;display:grid;place-items:center;font-size:13px;font-weight:900}.topbtn{border:1px solid #29455e;background:#12263a;color:#ddebF7;padding:9px 13px;border-radius:10px;cursor:pointer}
+.body{display:grid;grid-template-columns:220px minmax(0,1fr) 305px 300px;min-height:0}
+.side{padding:17px 12px;border-right:1px solid var(--line);background:#091523;overflow:auto}
+.navtitle{font-size:10px;letter-spacing:.18em;color:#6c849a;font-weight:900;padding:14px 10px 8px}.navbtn{width:100%;text-align:left;padding:12px 11px;background:transparent;color:#a9bbcb;border:1px solid transparent;border-radius:10px;margin:2px 0;font-weight:750;cursor:pointer}.navbtn:hover{background:#0f2234}.navbtn.active{background:#14283c;color:#fff;border-color:#27445d}.navbtn .ico{display:inline-block;width:24px;color:#7dcdf7}
+.sidefoot{margin-top:18px;padding:12px 10px;border-top:1px solid var(--line);color:#5d7487;font-size:11px;line-height:1.5}
+.main{overflow:auto;padding:24px 24px 40px;background:radial-gradient(circle at 60% 0,#10263e 0,#0a1421 39%,#08111b 70%)}
+.pagehead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}.eyebrow{font-size:11px;letter-spacing:.2em;color:var(--accent);font-weight:900}.pagehead h2{font-size:35px;letter-spacing:-.045em;margin:7px 0}.pagehead p{margin:0;color:var(--muted)}.headactions{display:flex;gap:8px}.btn{border:1px solid #29485f;background:#10283e;color:#e7f3fb;border-radius:10px;padding:10px 13px;font-weight:800;cursor:pointer}.btn.primary{background:var(--accent);border-color:#ffd36a;color:#07111c}.btn.green{background:#10422f;border-color:#2b7c5a}.btn.ghost{background:transparent}.btn.danger{background:#7f1d1d;border-color:#ef4444;color:#fff}
+.panel{background:rgba(13,27,44,.94);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px;margin-bottom:15px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:10px}.panelhead h3{margin:0;font-size:17px}.muted{color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.card{background:#0a1726;border:1px solid #1a3145;border-radius:13px;padding:14px}.card .k{font-size:11px;color:#768ea4}.card .v{font-size:21px;font-weight:900;margin-top:6px}.green{color:var(--green)}.red{color:var(--red)}.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.metric{background:#091726;border:1px solid #1b3146;border-radius:12px;padding:14px}.metric strong{display:block;font-size:19px;margin-top:5px}.metric span{font-size:11px;color:#7f96aa}.table{width:100%;border-collapse:collapse}.table th{font-size:10px;letter-spacing:.08em;color:#70879c;text-align:left;padding:9px;border-bottom:1px solid #1b3348}.table td{padding:11px 9px;border-bottom:1px solid #152c40;font-size:13px}.badge{padding:5px 8px;border-radius:8px;background:#11283d;color:#a8c8da;font-size:10px;font-weight:900}.badge.ok{background:#113c2c;color:#78dfb8}.badge.warn{background:#47330e;color:#ffd26d}.section{margin-top:18px}.field{display:grid;gap:6px;margin-bottom:12px}.field label{font-size:11px;color:#7d94a9}.input{width:100%;padding:11px 12px;background:#081522;border:1px solid #29465e;color:#ecf7ff;border-radius:10px;outline:none}.input:focus{border-color:#58bff2}.right{padding:17px 15px;border-left:1px solid var(--line);background:#0a1523;overflow:auto}.chat{padding:14px;border-left:1px solid var(--line);background:#05080d;overflow:hidden;display:flex;flex-direction:column}.chathead{display:flex;align-items:center;justify-content:space-between;padding:2px 3px 13px;border-bottom:1px solid #18202a}.chathead h3{margin:0;font-size:18px}.chatmsgs{flex:1;overflow:auto;padding:12px 3px}.chatmsg{margin:0 0 13px}.chatname{font-weight:900;color:#4ba8ff}.chattext{margin-top:3px;color:#eef2f5;font-size:13px;line-height:1.35}.chattime{font-size:10px;color:#6f7d89}.chatcomposer{border-top:1px solid #18202a;padding-top:10px;display:grid;grid-template-columns:1fr auto;gap:7px}.chatcomposer textarea{height:52px;resize:none}.chatbadge{background:#e84a5f;color:white;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:900}.topradio{display:flex;align-items:center;gap:9px;min-width:680px;padding:7px 12px;border:1px solid #184261;background:linear-gradient(180deg,#0c2134,#0a1826);border-radius:15px;box-shadow:0 0 0 1px rgba(47,119,163,.18),0 8px 24px rgba(0,0,0,.2)}.topradio .rlogo{width:44px;height:44px;border-radius:50%;object-fit:cover;display:block;box-shadow:0 0 0 1px #355d78,0 0 14px rgba(91,166,223,.18)}.rlogoText{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#12304a;border:1px solid #315d7b;color:#e6f4ff;font-weight:950;font-size:11px;flex:0 0 auto}.rplaymark{width:28px;height:28px;border:1px solid #23455d;background:#102a40;color:#e6f4ff;border-radius:8px;display:grid;place-items:center;font-size:10px;flex:0 0 auto}.rfmDot{font-size:9px;color:#ff7d8b;white-space:nowrap}.rbtn.accent{border-color:#7a6417;color:#ffd66c}.rbtn.gold{border-color:#6f5a1b;color:#d7b74a}.rusers{padding:6px 8px;border:1px solid #244961;background:#10283d;color:#bfe4f7;border-radius:8px;font-size:10px;font-weight:900;white-space:nowrap}.topradio .rinfo{min-width:170px}.topradio .rname{font-size:12px;font-weight:950}.topradio .rfreq{font-size:10px;color:#70d1ff;margin-top:2px}.topradio .rtrack{font-size:10px;color:#a7bac9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:320px}.livebadge{display:inline-flex;align-items:center;gap:5px;margin-left:8px;padding:3px 7px;border-radius:999px;background:#5a1620;border:1px solid #a92a39;color:#ff9aa4;font-size:9px;font-weight:950;letter-spacing:.04em;box-shadow:0 0 0 1px rgba(233,67,86,.15)}.rctrls{display:flex;align-items:center;gap:5px}.rbtn{width:28px;height:28px;border:1px solid #23455d;background:#102a40;color:#e6f4ff;border-radius:8px;cursor:pointer}.rvolume{width:82px}.rvolpct{font-size:10px;color:#88a0b2;width:30px;text-align:right}.authShade{position:fixed;inset:0;background:rgba(2,7,13,.78);backdrop-filter:blur(8px);display:none;z-index:50;align-items:center;justify-content:center}.authShade.show{display:flex}.authbox{width:440px;background:#0c1b2b;border:1px solid #2a4861;border-radius:18px;box-shadow:0 25px 70px rgba(0,0,0,.55);padding:22px}.authbox h2{margin:0 0 5px}.authbox p{color:#8da2b4;font-size:12px;line-height:1.5}.authstep{display:none}.authstep.active{display:block}.authgrid{display:grid;gap:10px}.authnote{padding:10px;background:#13283d;border:1px solid #294961;border-radius:10px;font-size:11px;color:#a6bfd1}.verifycode{font-size:26px;letter-spacing:.25em;font-weight:950;text-align:center;padding:12px;background:#091522;border:1px dashed #4e8bb1;border-radius:10px}.chatInput{padding:10px}.logoutState{color:#ff818e;font-weight:900;font-size:11px}.session-off .topbtn{border-color:#6b2a34;color:#ff9aa4}.profilecard{padding:14px;border:1px solid #1e3951;background:#0d1c2d;border-radius:14px;margin-bottom:13px}.profiletop{display:flex;gap:10px;align-items:center}.bigavatar{width:45px;height:45px;border-radius:12px;background:#153a5d;display:grid;place-items:center;font-weight:900}.profiletop strong{display:block}.level{font-size:11px;color:#7f98ad;margin-top:3px}.menuitem{display:flex;align-items:center;justify-content:space-between;padding:12px 11px;border:1px solid transparent;border-radius:11px;margin:4px 0;cursor:pointer}.menuitem:hover,.menuitem.active{background:#11263a;border-color:#27455e}.menuitem .left{display:flex;gap:10px;align-items:center}.mi{width:31px;height:31px;border-radius:9px;background:#12304a;display:grid;place-items:center;color:#8bd4fa}.mini{font-size:11px;color:#718aa0;margin-top:2px}.arrow{color:#65c8ff}.radioTop{margin-bottom:13px}.rightsep{border-top:1px solid #1a3347;margin:14px 0}.radioMini{padding:13px;border:1px solid #1d4056;background:#0b1b2b;border-radius:12px}.radioMini h4{margin:0 0 4px;color:#fff}.radioMini p{margin:0;color:#7c94a8;font-size:11px}.now{display:flex;gap:10px;align-items:center;margin-top:10px}.disc{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,#eab344 0 14%,#3e4b59 16% 26%,#111a25 28% 62%,#33495a 64% 100%);box-shadow:0 0 0 4px #182f44}.radioBtns{display:flex;gap:7px;margin-top:11px}.smallbtn{border:1px solid #29465d;background:#11283e;color:#ddecf7;border-radius:9px;padding:8px 10px;cursor:pointer;font-weight:800;font-size:11px}.view{display:none}.view.active{display:block}.radioHero{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:center}.cover{width:150px;height:150px;border-radius:18px;background:linear-gradient(145deg,#16385a,#0c1927 55%,#ffb318 56%,#b57700 100%);display:grid;place-items:center;border:1px solid #31506b;box-shadow:0 12px 30px rgba(0,0,0,.28)}.cover b{font-size:34px;letter-spacing:-.06em}.station{font-size:30px;font-weight:900}.freq{font-size:14px;color:#70cffd;margin-top:3px}.player{display:flex;align-items:center;gap:10px;margin-top:17px}.slider{flex:1}.status{padding:12px;border:1px solid #1f3c52;background:#0a1c2c;border-radius:11px;color:#a4bacb;font-size:12px;line-height:1.5}.radioStateOnline{color:#78dfb8!important}.radioStatePaused{color:#ffd26d!important}.radioStateStopped{color:#ff818e!important}.heroBtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.notice{padding:11px 12px;background:#112237;border:1px solid #274761;color:#a8bfce;border-radius:10px;font-size:12px;line-height:1.5}.urlrow{display:grid;grid-template-columns:1fr auto;gap:8px}.betaRow{display:grid;grid-template-columns:90px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #183043}.betaRow:last-child{border-bottom:0}.tag{padding:5px 8px;border-radius:8px;background:#17304a;color:#8fcfff;font-size:10px;font-weight:900;width:max-content}.tag.live{background:#123c2e;color:#79e0b7}.tag.final{background:#5b1118;color:#ff8e99}.badge.final{background:#5b1118;color:#ff8e99;border:1px solid #9d2635}.maintenanceCard{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;padding:22px;border:1px solid #6b1f2b;background:linear-gradient(180deg,#25121a,#1a0e14);border-radius:16px;margin-bottom:15px}
+.maintenanceCard .maintenanceTitle{color:#f7f8fb;line-height:1.2}.maintenanceCard .maintenanceTitle span{color:#ff6f7b}.maintenanceCard .maintenanceText{max-width:900px}.maintenanceCard{box-shadow:inset 0 0 0 1px rgba(255,80,100,.08)}.maintenanceIcon{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;background:#5b1118;color:#ff9aa4;font-size:25px;border:1px solid #9d2635}.maintenanceTitle{font-size:18px;font-weight:950}.maintenanceTitle span{color:#ff8e99}.maintenanceText{margin-top:5px;color:#b9919a;font-size:12px;line-height:1.5}.maintenancePreview{position:relative;border-radius:16px;overflow:hidden;border:1px solid #6b1f2b}.maintenancePreview{position:relative}.maintenancePreview:after{content:attr(data-maintenance-label);position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,11,17,.68);color:#ff8e99;font-size:24px;font-weight:950;letter-spacing:.12em;text-shadow:0 2px 18px rgba(0,0,0,.6);pointer-events:none}.communityMap{position:relative;min-height:360px;border-radius:16px;overflow:hidden;border:1px solid #203e56;background:radial-gradient(circle at 30% 25%,#183952 0,#0f2436 22%,#0a1826 60%,#08131f 100%)}.communityMap:before,.communityMap:after{content:"";position:absolute;background:rgba(102,201,255,.12);filter:blur(.2px)}.communityMap:before{width:140%;height:1px;left:-20%;top:48%;transform:rotate(10deg)}.communityMap:after{width:1px;height:140%;left:56%;top:-20%;transform:rotate(-12deg)}.mapRoad{position:absolute;height:4px;background:#27485f;border-radius:4px;box-shadow:0 0 0 1px rgba(255,255,255,.02)}.mapPin{position:absolute;transform:translate(-50%,-100%);cursor:pointer}.mapPin .dot{width:18px;height:18px;border-radius:50%;background:#ffb318;border:3px solid #fff;box-shadow:0 0 0 5px rgba(255,179,24,.18),0 5px 15px rgba(0,0,0,.4)}.mapPin.company .dot{background:#58c3ff;box-shadow:0 0 0 5px rgba(88,195,255,.16),0 5px 15px rgba(0,0,0,.4)}.mapPin.event .dot{background:#ff6473;box-shadow:0 0 0 5px rgba(255,100,115,.16),0 5px 15px rgba(0,0,0,.4)}.mapTip{position:absolute;left:10px;bottom:18px;max-width:320px;padding:11px 13px;border:1px solid #27455d;background:rgba(6,14,23,.92);border-radius:12px;color:#dcecf8;font-size:12px;line-height:1.4;z-index:3}.communityTabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.communityTabs button{border:1px solid #284760;background:#10283e;color:#d9ecf7;border-radius:9px;padding:8px 11px;cursor:pointer;font-size:11px;font-weight:800}.communityTabs button.active{background:#1a3851;border-color:#58bff2}
+.countryLabel text{fill:#e7f3fb;font-size:13px;font-weight:900;paint-order:stroke;stroke:#07121d;stroke-width:3px;letter-spacing:.01em}
+.dgtLayer text{font-size:22px;paint-order:stroke;stroke:#06111a;stroke-width:3px;cursor:pointer;filter:url(#glow)}
+.dgtLayer .dgtSmall{font-size:18px}
+.dgtTip{font-size:11px;fill:#f7fbff;font-weight:900;paint-order:stroke;stroke:#07121d;stroke-width:3px}
+.countryGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:12px}
+.countryChip{padding:8px 9px;border:1px solid #28465d;background:#0c1e2e;border-radius:9px;color:#d9eef9;font-size:11px;font-weight:800}
+.dgtLegend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.dgtLegend .badge{display:inline-flex;align-items:center;gap:5px}
+@media(max-width:900px){.countryGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+.toast{position:fixed;right:24px;bottom:24px;z-index:120;padding:12px 15px;background:#0f2538;border:1px solid #2b516a;border-radius:12px;box-shadow:var(--shadow);font-size:12px;display:none}.toast.show{display:block}.toast.success{border-color:#2d8b67;background:#103c2c;color:#7ce2b7}.toast.error{border-color:#9d2635;background:#3a1219;color:#ff9aa4}
+@media(max-width:1500px){.body{grid-template-columns:200px minmax(0,1fr) 290px}.chat{display:none}.topradio{min-width:360px}.topradio .rinfo{min-width:130px}.topradio .rtrack{max-width:220px}}
+@media(max-width:1200px){.body{grid-template-columns:200px minmax(0,1fr)}.right{display:none}.chat{display:none}.topradio{display:none}.cards{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
+
+.modalShade{position:fixed;inset:0;background:rgba(2,7,13,.78);backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;z-index:60}.modalShade.show{display:flex}.modalbox{width:min(620px,92vw);background:#0c1b2b;border:1px solid #294860;border-radius:18px;padding:20px;box-shadow:0 30px 90px rgba(0,0,0,.6)}.closebtn{border:1px solid #29465e;background:#10263a;color:#e7f4fd;width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:20px;line-height:1}.modalSection{margin-top:18px}.mapToolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}.mapHint{font-size:10px;color:#6f879b}.mapTools{display:flex;gap:6px}.mapTool{border:1px solid #2a4a60;background:#0f2639;color:#dff3ff;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:900;cursor:pointer}.communityMap{min-height:520px;touch-action:none}.mapCanvas{width:100%;height:520px;overflow:hidden;cursor:grab;background:#0a1622}.mapCanvas.dragging{cursor:grabbing}.ets2map{width:100%;height:100%;display:block;transform-origin:center center;user-select:none}.mapcity text{fill:#e8f2fa;font-size:15px;font-weight:800;text-shadow:0 1px 3px #000}.extraCity text{fill:#cfe2ef;font-size:10px;font-weight:700;text-shadow:0 1px 2px #000}.extraCity circle{fill:#8fd3ff;stroke:#081723;stroke-width:2;opacity:.95}.extraCity .sp{fill:#ffd15c}.extraCity .capital{fill:#ff8c69}.routePoint{stroke:#fff;stroke-width:3;filter:url(#glow)}.userPoint{fill:#ffb318}.eventPoint{fill:#ff6574}.routeLine{fill:#6bcfff}.mapTip{left:16px;bottom:16px}.
+/* Beta 0.6.23 · identidad visual + logo circular */
+.mapCanvas{background:#05080c;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;overscroll-behavior:contain}
+.ets2map{position:relative;width:2048px;height:1416px;flex:0 0 auto;transform-origin:center center;user-select:none;will-change:transform}
+.ets2map img.mapBase{display:block;width:2048px;height:1416px;object-fit:contain;pointer-events:none;user-select:none}
+.mapStage{position:relative;width:2048px;height:1416px}
+.mapOverlay{position:absolute;inset:0;pointer-events:none}
+.mapPin{position:absolute;transform:translate(-50%,-50%);cursor:pointer;pointer-events:auto;z-index:6}
+.mapPin .mapSign{width:44px;height:44px;object-fit:contain;display:block;filter:drop-shadow(0 5px 7px rgba(0,0,0,.75));border-radius:6px}
+.mapPin.user .mapSign{width:30px;height:30px;border-radius:50%}
+.mapPin.company .mapSign{width:34px;height:34px;border-radius:50%}
+.mapPin.event .mapSign{width:34px;height:34px}
+.mapPin .pinLabel{position:absolute;left:50%;top:calc(100% + 3px);transform:translateX(-50%);white-space:nowrap;padding:3px 6px;border-radius:5px;background:rgba(2,8,14,.9);border:1px solid #2d4a60;color:#e8f4ff;font-size:9px;font-weight:900;pointer-events:none}
+.mapPin.dgt{z-index:8}
+.mapPin.dgt .mapSign{width:48px;height:48px}
+.mapPin.dgt .pinLabel{color:#ffd46b}
+.signGallery{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:12px}
+.signCard{background:#091622;border:1px solid #1c3850;border-radius:11px;padding:8px;display:grid;grid-template-columns:54px 1fr;gap:8px;align-items:center}
+.signCard img{width:54px;height:54px;object-fit:contain;background:#fff;border-radius:7px}
+.signCard b{font-size:11px;display:block}.signCard span{display:block;font-size:10px;color:#7f95a8;margin-top:2px}
+.sourceNote{margin-top:10px;font-size:10px;color:#688097}
+@media(max-width:1100px){.signGallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.radioHero .cover img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+
+.authbox.wide{width:min(980px,92vw);padding:28px}.authhero{margin-bottom:18px}.authhero h2{font-size:32px;letter-spacing:-.03em;margin:6px 0}.authhero p{max-width:760px}.authportal{display:grid;grid-template-columns:1fr 1fr;gap:14px}.authcard{background:#0d1d2e;border:1px solid #29465e;border-radius:14px;padding:18px}.authcard h3{margin:0 0 14px;font-size:17px}.authcard .eyebrow{margin-bottom:5px}.authsuccess{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;background:#103c2c;border:1px solid #2d8b67;color:#7ce2b7;font-size:12px;font-weight:850}.authsuccess.show{display:block}
+@media(max-width:860px){.authportal{grid-template-columns:1fr}}
+
+<style>
+.toast{min-width:430px;max-width:540px;padding:14px 16px;display:none;align-items:center;gap:14px;background:#081724;border:1px solid #2a546c;border-left:4px solid #39e39a;border-radius:12px;box-shadow:0 18px 48px rgba(0,0,0,.42)}
+.toast.show{display:flex}.toast.success{border-color:#2d8b67;border-left-color:#39e39a;background:#081724;color:#eef8f4}.toast.error{border-color:#9d2635;border-left-color:#ff6372;background:#241017;color:#fff}
+.toastIcon{width:42px;height:42px;border-radius:11px;background:#39e39a;color:#062015;display:grid;place-items:center;font-size:28px;font-weight:900;flex:0 0 auto}.toast.error .toastIcon{background:#ff6372;color:#31050b}
+.toastBody{min-width:0;flex:1}.toastEyebrow{font-size:9px;letter-spacing:.14em;font-weight:950;color:#39e39a;margin-bottom:5px}.toast.error .toastEyebrow{color:#ff7b89}.toastTitle{font-weight:950;font-size:14px}.toastText{margin-top:4px;color:#a4b9c7;font-size:10px}.toastBtn{border:0;background:#f3ad21;color:#101a22;padding:10px 20px;border-radius:9px;font-weight:900;cursor:pointer;flex:0 0 auto}.toastBtn:hover{filter:brightness(1.06)}
+</style>
+</head>
+<body>
+<audio id="radioPlayer" preload="none"></audio>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div><h1>S&C Elite</h1><small>Centro de control · Beta 0.6.26.2</small></div></div>
+  <div class="topradio"><div class="rlogoText" aria-label="S&C Elite">S&amp;C</div><div class="rplaymark">▶</div><div class="rfmDot">🔴 <b>9.90 FM</b></div><div class="rinfo"><div class="rname">S&amp;C Elite <span class="livebadge">🔴 EN VIVO · EN DIRECTO</span></div><div class="rfreq">S&amp;C Elite FM · EN DIRECTO</div></div><div class="rctrls"><button class="rbtn accent" id="topChat" title="Chat">▤</button><button class="rbtn" id="topCall" title="Comunidad">⌕</button><button class="rbtn" id="topStar" title="Favorito">☆</button><button class="rbtn gold" id="topAward" title="Premios">♜</button><button class="rbtn" id="topPrev" title="Anterior">◀</button><button class="rbtn" id="topPlay" title="Reproducir">▶</button><button class="rbtn" id="topPause" title="Pausa">Ⅱ</button><button class="rbtn" id="topStop" title="Detener">■</button></div><input id="topVolume" class="rvolume" type="range" min="0" max="1" step="0.01" value="0.75" title="Volumen"><span class="rvolpct" id="topVolPct">75%</span><div class="rusers">👥 1</div></div><div class="topright"><span class="online">● Actualización automática</span><button class="themeToggle" id="themeToggle" title="Cambiar entre modo oscuro y claro">☀️ Claro</button><div class="languagePicker" id="languagePicker"><button class="languageTrigger" id="languageTrigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="languageMenu" aria-label="Seleccionar idioma"><span class="languageFlag" id="languageFlag">🇪🇸</span><span class="languageName" id="languageName">Español</span><span class="languageChevron" aria-hidden="true">▾</span></button><div class="languageMenu" id="languageMenu" role="listbox" aria-label="Seleccionar idioma" hidden><button class="languageOption" type="button" role="option" data-language="es" aria-selected="true"><span class="languageFlag">🇪🇸</span>Español</button><button class="languageOption" type="button" role="option" data-language="en"><span class="languageFlag">🇬🇧</span>English</button><button class="languageOption" type="button" role="option" data-language="fr"><span class="languageFlag">🇫🇷</span>Français</button><button class="languageOption" type="button" role="option" data-language="pt"><span class="languageFlag">🇵🇹</span>Português</button><button class="languageOption" type="button" role="option" data-language="it"><span class="languageFlag">🇮🇹</span>Italiano</button><button class="languageOption" type="button" role="option" data-language="ca"><span class="languageFlag">🏴</span>Català</button></div></div><div class="userpill"><div class="avatar" id="topAvatar">SA</div><span id="topUser">Saske</span></div><button class="topbtn" id="sessionBtn">Cerrar sesión</button></div>
+</header>
+<div class="body">
+<aside class="side">
+  <div class="navtitle">MI CUENTA</div>
+  <button class="navbtn active" data-view="resumen"><span class="ico">⌂</span>Resumen</button>
+  <button class="navbtn" data-view="versiones"><span class="ico">▤</span>Versiones</button>
+  <button class="navbtn" data-view="cambio"><span class="ico">⇄</span>Cambio de perfil</button>
+    <div class="navtitle">COMUNIDAD</div>
+  <button class="navbtn" data-view="usuarios"><span class="ico">♟</span>Usuarios</button>
+  <button class="navbtn" data-view="estadisticas"><span class="ico">⌁</span>Estadísticas</button>
+  <button class="navbtn" data-view="mapa"><span class="ico">◆</span>Mapa</button>
+  <button class="navbtn" data-view="empresas"><span class="ico">▦</span>Empresas</button>
+  <button class="navbtn" data-view="eventos"><span class="ico">◇</span>Eventos</button>
+  <button class="navbtn" data-view="mercado"><span class="ico">🛒</span>Mercado</button>
+  <div class="navtitle">OFICINAS</div>
+  <button class="navbtn"><span class="ico">▥</span>Banco Central</button>
+  <button class="navbtn"><span class="ico">▤</span>Hacienda</button>
+  <button class="navbtn"><span class="ico">⚠</span>DGT Tráfico</button>
+  <button class="navbtn" data-view="aseguradora"><span class="ico">◆</span>Aseguradora</button>
+  <button class="navbtn"><span class="ico">★</span>Reating</button>
+  <button class="navbtn"><span class="ico">▣</span>Ministerio</button>
+  <button class="navbtn"><span class="ico">▰</span>Ofertas de empleo</button>
+  <div class="navtitle">HERRAMIENTAS</div>
+  <button class="navbtn" data-view="lanzador"><span class="ico">▶</span>Lanzador ETS2</button>
+  <button class="navbtn" data-view="radio"><span class="ico">◉</span>FM 9.90</button>
+  <button class="navbtn" data-view="mods"><span class="ico">⬢</span>Mods</button>
+  <button class="navbtn"><span class="ico">⚙</span>Configuración</button>
+  <div class="sidefoot">S&C Elite ETS2 Hub<br>Economía · Búsqueda ETS2 · Radio<br>Beta 0.6.24</div>
+</aside>
+
+<main class="main">
+<section class="view active" id="view-resumen">
+  <div class="pagehead"><div><div class="eyebrow">ACCESO PERSONAL</div><div class="pagehead h2"><h2>Cuenta bancaria de <span id="pageUser">Saske</span></h2></div><p>Saldo, préstamos, entregas y todos los movimientos del conductor seleccionado.</p></div><div class="headactions"><button class="btn" onclick="showView('lanzador')">Abrir lanzador</button><button class="btn primary" onclick="showView('radio')">FM 9.90</button></div></div>
+  <div class="panel">
+    <div class="eyebrow" style="margin-bottom:7px">CUENTA BANCARIA PRIVADA</div>
+    <div class="panelhead"><h3>Saldo, préstamos y todos los movimientos</h3><span class="badge ok">Cuenta activa</span></div>
+    <div class="cards" style="margin-top:15px">
+      <div class="card"><div class="k">Saldo disponible</div><div class="v" id="balance">10.000 €</div></div>
+      <div class="card"><div class="k">Saldo real</div><div class="v">10.000 €</div></div>
+      <div class="card"><div class="k">Deuda pendiente</div><div class="v">0 €</div></div>
+      <div class="card"><div class="k">Cuota diaria</div><div class="v">0 €</div></div>
+    </div>
+    <div class="grid2 section">
+      <div class="box"><div class="panelhead"><h3>Préstamos</h3><span class="muted">Financiación</span></div><table class="table" style="margin-top:7px"><thead><tr><th>PRÉSTAMO</th><th>CANTIDAD</th><th>INTERÉS</th><th>PENDIENTE</th><th>CUOTA</th></tr></thead><tbody><tr><td colspan="5" class="muted" style="text-align:center;padding:24px">No hay préstamos activos en la versión actual.</td></tr></tbody></table></div>
+      <div class="box"><div class="panelhead"><h3>Resumen económico</h3></div><div class="grid3" style="margin-top:12px"><div class="metric"><span>Ingresos</span><strong class="green">+10.000 €</strong></div><div class="metric"><span>Gastos</span><strong class="red">-0 €</strong></div><div class="metric"><span>Beneficio</span><strong>0 €</strong></div></div></div>
+    </div>
+    <div class="box section"><div class="panelhead"><h3>Movimientos</h3><span class="muted">Historial reciente</span></div><table class="table" style="margin-top:7px"><thead><tr><th>DESCRIPCIÓN</th><th>FECHA</th><th>CANTIDAD</th><th>SALDO</th><th>ESTADO</th></tr></thead><tbody>
+      <tr><td colspan="5" class="muted" style="text-align:center;padding:26px">No hay movimientos registrados.</td></tr>
+    </tbody></table></div>
+  </div>
+</section>
+
+<section class="view" id="view-lanzador">
+  <div class="pagehead"><div><div class="eyebrow">HERRAMIENTA ETS2</div><h2>Gestor de instalación de Euro Truck Simulator 2</h2><p>Busca automáticamente tu instalación de ETS2 o selecciónala manualmente.</p></div></div>
+  <div class="panel">
+    <div class="panelhead"><h3>Buscar instalación</h3><span class="badge ok">Disponible</span></div>
+    <div class="grid2" style="margin-top:15px">
+      <div class="box">
+        <div class="field"><label>Ruta de eurotrucks2.exe</label><div class="urlrow"><input id="ets2Path" class="input" placeholder="Se buscará automáticamente en Steam..."><button class="btn primary" id="findETS2">Buscar ETS2</button></div></div>
+        <div class="actions heroBtns"><button class="btn" id="pickETS2">Examinar PC</button><button class="btn" id="openETS2Folder">Abrir carpeta</button><button class="btn" id="steamETS2">Abrir Steam</button></div>
+        <div class="status" id="launchStatus" style="margin-top:14px">Pulsa «Buscar ETS2» para localizar una instalación habitual de Steam. «Abrir Steam» usará el protocolo de Steam de Windows directamente.</div>
+      </div>
+      <div class="box">
+        <h3 style="margin-top:0">Integración S&C Elite</h3>
+        <div class="rows">
+          <div class="row"><span>Perfil activo</span><strong id="launchProfile">Saske</strong></div>
+          <div class="row"><span>Versión ETS2</span><strong>1.60</strong></div>
+          <div class="row"><span>Instalación</span><strong id="routeSaved">No encontrada</strong></div>
+          <div class="row"><span>Promods</span><span class="badge ok">Preparado</span></div>
+          <div class="row"><span>Telemetría</span><span class="badge warn">Beta</span></div>
+          <div class="row"><span>Economía online</span><span class="badge">Próxima beta</span></div>
+        </div>
+        <div class="notice" style="margin-top:13px">Se han eliminado los argumentos y controles de lanzamiento. Esta sección queda centrada en localizar y gestionar la instalación de ETS2.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-radio">
+  <div class="pagehead"><div><div class="eyebrow">S&C ELITE RADIO</div><h2>FM 9.90</h2><p>Tu radio propia integrada en el launcher.</p></div><div class="headactions"><button class="btn primary" id="openRadioUrl">▶ Reproducir aquí</button></div></div>
+  <div class="panel">
+    <div class="radioHero">
+      <div class="cover"></div>
+      <div>
+        <div class="station">S&C Elite FM</div><div class="freq">9.90 · Radio oficial de S&C Elite</div>
+        <div class="status" style="margin-top:13px"><b>Emisora configurada</b><br><span id="radioState">https://www.radio-espana.es/cadena-100</span></div>
+        <div class="metric" style="margin-top:10px"><span>ESTADO DE LA RADIO</span><strong id="radioStatusSummary">S&amp;C Elite FM · EN DIRECTO</strong></div>
+        <div class="heroBtns">
+          <button class="btn primary" id="radioPlay">▶ Reproducir</button><button class="btn" id="radioPause">Ⅱ Pausa</button><button class="btn" id="radioStop">■ Detener</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel section" style="margin:0;background:#0a1726">
+      <div class="panelhead"><h3>Configuración de la radio</h3><span class="badge">Radio web · volumen integrado</span></div>
+      <div class="field" style="margin-top:12px"><label>URL de la emisora</label><div class="urlrow"><input id="radioUrl" class="input" placeholder="https://www.radio-espana.es/cadena-100"><button class="btn" id="saveRadio">Guardar</button></div></div>
+      <div class="notice">La URL que has indicado (https://www.radio-espana.es/cadena-100) se usa como referencia. La música se reproduce directamente dentro de S&C Elite mediante el stream de audio, sin abrir ni enviar al navegador. El control de volumen permanece en la barra superior.</div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-cambio">
+  <div class="pagehead"><div><div class="eyebrow">MI CUENTA</div><h2>Cambio de perfil</h2><p>Perfil de administración y control de la aplicación S&C Elite.</p></div></div>
+  <div class="panel">
+    <div class="grid3">
+      <div class="box profileSelect" data-user="Saske"><div class="bigavatar">SA</div><h3>Saske</h3><p class="muted">Dueño de la Empresa - APP</p><button class="btn primary">Perfil activo</button></div>
+      <div class="box profileSelect" data-user="Carlos"><div class="bigavatar">CA</div><h3>Carlos</h3><p class="muted">Dirección/Manager</p><button class="btn">Cambiar a Carlos</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-versiones">
+  <div class="pagehead"><div><div class="eyebrow">DESARROLLO</div><h2>Versiones y betas</h2><p>Historial de construcción del S&amp;C Elite ETS2 Hub. Las versiones anteriores están archivadas y finalizadas.</p></div><div class="headactions"><span class="badge ok">Beta 0.6.26.2 · Actual</span></div></div>
+  <div class="panel">
+    <div class="betaRow"><span class="tag live">0.6.26.2</span><div><b>Corrección de Radio Online + controles de reproducción</b><div class="muted">Versión en curso. PLAY inicia o reanuda la reproducción, PAUSA detiene temporalmente la música y STOP la detiene y desconecta correctamente. Estados de radio y controles sincronizados con la reproducción.</div></div><span class="badge ok">EN CURSO</span></div>
+    <div class="betaRow"><span class="tag final">0.6.25.1</span><div><b>Actualización 0.6.25.1</b><div class="muted">Versión finalizada. Actualización anterior archivada tras completar su ciclo de desarrollo.</div></div><span class="badge final">FINALIZADO</span></div>
+    <div class="betaRow"><span class="tag final">0.6.24.1</span><div><b>Sesión + Radio S&amp;C Elite + mejoras de interfaz</b><div class="muted">Versión finalizada. Confirmación visual de inicio de sesión hasta «Entendido», selector multilingüe y mejoras de sesión, tema y controles.</div></div><span class="badge final">FINALIZADO</span></div>
+    <div class="betaRow"><span class="tag final">0.6.23</span><div><b>Mantenimiento de Mercado y Aseguradora</b><div class="muted">Versión finalizada. Correcciones estructurales para mostrar los carteles de mantenimiento sin alterar el resto del Hub.</div></div><span class="badge final">FINALIZADO</span></div>
+    <div class="betaRow"><span class="tag final">0.6.22</span><div><b>Mercado + Aseguradora</b><div class="muted">Versión finalizada. Preparación de los apartados Mercado y Aseguradora para mostrar sus estados de mantenimiento.</div></div><span class="badge final">FINALIZADO</span></div>
+    <div class="betaRow"><span class="tag final">0.6.21</span><div><b>Perfiles + usuarios + eventos</b><div class="muted">Versión finalizada. Perfiles y usuarios actualizados y mejoras en la gestión de eventos.</div></div><span class="badge final">FINALIZADO</span></div>
+    <div class="betaRow"><span class="tag final">0.6.20</span><div><b>Gestión de sesión</b><div class="muted">Versión finalizada. Se incorporó el comportamiento de sesión fresca y el cierre de sesión.</div></div><span class="badge final">FINALIZADO</span></div>
+    <div class="betaRow"><span class="tag final">0.6.19</span><div><b>Mercado + Aseguradora + acceso renovado + sesión</b><div class="muted">Versión finalizada. Nuevo apartado Mercado, ajustes de Aseguradora y mejoras del acceso y recuperación de cuenta.</div></div><span class="badge final">FINALIZADO</span></div>
+    <div class="betaRow"><span class="tag final">0.6.18</span><div><b>Identidad visual + icono de S&amp;C Elite Logistics</b><div class="muted">Versión finalizada. Logotipo circular integrado como icono de la aplicación y como imagen de S&amp;C Elite FM 9.90.</div></div><span class="badge final">FINALIZADO</span></div>
+  </div>
+</section>
+
+<section class="view" id="view-mods">
+  <div class="pagehead"><div><div class="eyebrow">CONTENIDO</div><h2>Mods de S&C Elite</h2><p>Preparado para gestionar tus mods de ETS2 desde el launcher.</p></div></div>
+  <div class="panel">
+    <div class="grid2">
+      <div class="box"><h3>S&C Elite Fuel Prices ES</h3><p class="muted">Precios Realistas Iberia · ETS2 1.60 · Promods Europe + mapa base.</p><span class="badge ok">Instalado</span></div>
+      <div class="box"><h3>Gestor de mods</h3><p class="muted">En próximas betas podrás detectar, activar y desactivar mods desde el launcher.</p><span class="badge warn">Próximamente</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-usuarios">
+  <div class="pagehead"><div><div class="eyebrow">COMUNIDAD</div><h2>Usuarios</h2><p>Miembros visibles y verificados de la comunidad S&C Elite.</p></div><div class="headactions"><button class="btn" id="refreshCommunity">Actualizar</button></div></div>
+  <div class="panel"><div class="grid3">
+    <div class="metric"><span>Usuarios registrados</span><strong id="communityUsersCount">1</strong></div>
+    <div class="metric"><span>Conectados ahora</span><strong id="communityOnlineCount">1</strong></div>
+    <div class="metric"><span>Verificados</span><strong id="communityVerifiedCount">1</strong></div>
+  </div>
+  <div class="box section"><div class="panelhead"><h3>Lista de usuarios</h3><span class="badge ok" id="communityUsersBadge">1 usuario</span></div><table class="table" style="margin-top:8px"><thead><tr><th>USUARIO</th><th>ROL</th><th>ESTADO</th></tr></thead><tbody id="communityUsersBody"></tbody></table></div>
+  </div>
+</section>
+<section class="view" id="view-estadisticas">
+  <div class="pagehead"><div><div class="eyebrow">COMUNIDAD</div><h2>Estadísticas</h2><p>Datos calculados desde la actividad local de la comunidad.</p></div></div>
+  <div class="panel"><div class="cards">
+    <div class="card"><div class="k">Empresas</div><div class="v" id="statCompanies">1</div></div>
+    <div class="card"><div class="k">Conductores</div><div class="v" id="statDrivers">1</div></div>
+    <div class="card"><div class="k">Eventos</div><div class="v" id="statEvents">2</div></div>
+    <div class="card"><div class="k">Kilómetros</div><div class="v" id="statKm">1.250 km</div></div>
+  </div></div>
+  <div class="panel"><div class="panelhead"><h3>Actividad</h3><span class="badge ok">Operativa</span></div><div class="grid3" style="margin-top:12px"><div class="metric"><span>Rutas completadas</span><strong>8</strong></div><div class="metric"><span>Convoys realizados</span><strong>3</strong></div><div class="metric"><span>Empresas activas</span><strong id="statActiveCompanies">1</strong></div></div></div>
+</section>
+<section class="view" id="view-mapa">
+
+  <div class="maintenanceCard">
+    <div class="maintenanceIcon">🛠️</div>
+    <div><div class="maintenanceTitle">MAPA EN MANTENIMIENTO · <span>PROXIMAMENTE</span></div><div class="maintenanceText">El mapa de Euro Truck Simulator 2 está temporalmente en mantenimiento mientras terminamos la cartografía, las ciudades y las incidencias DGT. La sección volverá a estar disponible en una próxima versión.</div></div>
+  </div>
+  <div class="pagehead"><div><div class="eyebrow">COMUNIDAD</div><h2>Mapa ETS2</h2><p>Mapa interactivo estilo Euro Truck Simulator 2 con zoom, desplazamiento y puntos de la comunidad.</p></div></div>
+  <div class="panel">
+    <div class="communityTabs"><button class="active" data-mapfilter="all">Todo</button><button data-mapfilter="company">Empresas</button><button data-mapfilter="event">Eventos</button><button data-mapfilter="user">Usuarios</button></div>
+    <div class="mapToolbar">
+      <div class="mapHint">Mapa exacto de la muestra · rueda para zoom · arrastra para mover · doble clic para acercar</div>
+      <div class="mapTools"><button class="mapTool" id="mapZoomOut">−</button><button class="mapTool" id="mapZoomFit">Ajustar</button><button class="mapTool" id="mapZoomReset">100%</button><button class="mapTool" id="mapZoomIn">+</button></div>
+    </div>
+    <div class="maintenancePreview" data-maintenance-label="PRÓXIMAMENTE"><div class="communityMap" id="communityMap">
+      <div class="mapCanvas" id="mapCanvas">
+        <div class="ets2map" id="mapStage" aria-label="Mapa de Europa de referencia para S&C Elite">
+          <img class="mapBase" src="assets/ets2-europe-map.png" alt="Mapa de Europa estilo ETS2 proporcionado como referencia">
+          <div class="mapOverlay">
+            <!-- Señales oficiales usadas como iconos DGT en el mapa -->
+            <div class="mapPin dgt" data-type="dgt" data-dgt="P-18 · Obras · Peligro por la proximidad de un tramo de vía en obras." style="left:27.5%;top:52.5%"><img class="mapSign" src="assets/p18-obras.png" alt="P-18 Obras"><span class="pinLabel">P-18 Obras</span></div>
+            <div class="mapPin dgt" data-type="dgt" data-dgt="P-32 · Obstrucción en la calzada." style="left:33%;top:47%"><img class="mapSign" src="assets/p32-obstruccion.png" alt="P-32 Obstrucción"><span class="pinLabel">P-32 Obstrucción</span></div>
+            <div class="mapPin dgt" data-type="dgt" data-dgt="P-33 · Visibilidad reducida." style="left:39.5%;top:41%"><img class="mapSign" src="assets/p33-visibilidad.png" alt="P-33 Visibilidad reducida"><span class="pinLabel">P-33 Visibilidad</span></div>
+            <div class="mapPin dgt" data-type="dgt" data-dgt="P-34 · Presencia de hielo o nieve." style="left:57%;top:19%"><img class="mapSign" src="assets/p34-nieve.png" alt="P-34 Hielo o nieve"><span class="pinLabel">P-34 Nieve</span></div>
+            <div class="mapPin dgt" data-type="dgt" data-dgt="R-2 · Detención obligatoria o stop." style="left:32%;top:50.5%"><img class="mapSign" src="assets/r2-stop.png" alt="R-2 STOP"><span class="pinLabel">R-2 STOP</span></div>
+
+            <!-- Puntos de comunidad -->
+            <div class="mapPin user" data-type="user" data-label="Saske · Dueño de la empresa" style="left:20.4%;top:55.1%"><div class="dot"></div><span class="pinLabel">Saske</span></div>
+            <div class="mapPin user" data-type="user" data-label="Carlos · Dirección-Manager" style="left:22.7%;top:52.8%"><div class="dot"></div><span class="pinLabel">Carlos</span></div>
+            <div class="mapPin event" data-type="event" data-label="Convoy S&C Elite #01 · Valencia → Soria · 27/08/2026" style="left:24.8%;top:56.8%"><div class="dot"></div><span class="pinLabel">Convoy #01</span></div>
+            <div class="mapPin company" data-type="company" data-label="S&C Elite Convoys · Empresa activa" style="left:22.8%;top:54.1%"><div class="dot"></div><span class="pinLabel">S&C Elite</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="mapTip" id="mapTip">Convoy S&C Elite #01 · Valencia → Soria · 27/08/2026</div>
+    </div></div>
+    <div class="panel" style="margin-top:12px">
+      <div class="panelhead"><h3>🌍 Países de Europa</h3><span class="badge ok">Mapa activo</span></div>
+      <div class="countryGrid">
+        <div class="countryChip">🇪🇸 España</div><div class="countryChip">🇵🇹 Portugal</div><div class="countryChip">🇫🇷 Francia</div><div class="countryChip">🇧🇪 Bélgica</div><div class="countryChip">🇳🇱 Países Bajos</div>
+        <div class="countryChip">🇩🇪 Alemania</div><div class="countryChip">🇨🇭 Suiza</div><div class="countryChip">🇮🇹 Italia</div><div class="countryChip">🇦🇹 Austria</div><div class="countryChip">🇨🇿 Chequia</div>
+        <div class="countryChip">🇸🇰 Eslovaquia</div><div class="countryChip">🇵🇱 Polonia</div><div class="countryChip">🇩🇰 Dinamarca</div><div class="countryChip">🇳🇴 Noruega</div><div class="countryChip">🇸🇪 Suecia</div>
+        <div class="countryChip">🇫🇮 Finlandia</div><div class="countryChip">🇬🇧 Reino Unido</div><div class="countryChip">🇮🇪 Irlanda</div><div class="countryChip">🇮🇸 Islandia</div><div class="countryChip">🇭🇺 Hungría</div>
+        <div class="countryChip">🇭🇷 Croacia</div><div class="countryChip">🇸🇮 Eslovenia</div><div class="countryChip">🇷🇸 Serbia</div><div class="countryChip">🇧🇦 Bosnia y Herzegovina</div><div class="countryChip">🇲🇪 Montenegro</div>
+        <div class="countryChip">🇦🇱 Albania</div><div class="countryChip">🇲🇰 Macedonia del Norte</div><div class="countryChip">🇬🇷 Grecia</div><div class="countryChip">🇧🇬 Bulgaria</div><div class="countryChip">🇷🇴 Rumanía</div>
+        <div class="countryChip">🇲🇩 Moldavia</div><div class="countryChip">🇺🇦 Ucrania</div><div class="countryChip">🇧🇾 Bielorrusia</div><div class="countryChip">🇷🇺 Rusia</div><div class="countryChip">🇹🇷 Turquía</div>
+        <div class="countryChip">🇱🇺 Luxemburgo</div><div class="countryChip">🇪🇪 Estonia</div><div class="countryChip">🇱🇻 Letonia</div><div class="countryChip">🇱🇹 Lituania</div><div class="countryChip">🇳🇱 Países Bajos</div>
+      </div>
+      <div class="panelhead" style="margin-top:14px"><h3>🚦 Señales DGT</h3><span class="badge">Fuente oficial</span></div>
+      <div class="signGallery">
+        <div class="signCard"><img src="assets/p18-obras.png" alt="P-18 Obras"><div><b>P-18</b><span>Obras</span></div></div>
+        <div class="signCard"><img src="assets/p32-obstruccion.png" alt="P-32 Obstrucción"><div><b>P-32</b><span>Obstrucción en la calzada</span></div></div>
+        <div class="signCard"><img src="assets/p33-visibilidad.png" alt="P-33 Visibilidad reducida"><div><b>P-33</b><span>Visibilidad reducida</span></div></div>
+        <div class="signCard"><img src="assets/p34-nieve.png" alt="P-34 Hielo o nieve"><div><b>P-34</b><span>Hielo o nieve</span></div></div>
+        <div class="signCard"><img src="assets/r2-stop.png" alt="R-2 STOP"><div><b>R-2</b><span>Detención obligatoria / STOP</span></div></div>
+      </div>
+      <div class="sourceNote">Señales tomadas de la guía oficial DGT / BOE proporcionada en esta conversación. El catálogo incluye categorías de advertencia de peligro, prioridad, prohibición, obligación e indicaciones generales.</div>
+      <div class="dgtLegend"><span class="badge">🚦 Señal DGT en mapa</span><span class="badge">🚨 Accidente</span><span class="badge">🚧 Obras / retención</span><span class="badge">📸 Radar</span><span class="badge">⚠️ Aviso</span></div>
+    </div>
+  </div>
+</section>
+<section class="view" id="view-empresas">
+  <div class="pagehead"><div><div class="eyebrow">COMUNIDAD</div><h2>Empresas</h2><p>Empresas y VTC activas dentro de S&C Elite.</p></div><div class="headactions"><button class="btn primary" id="addCompany">+ Nueva empresa</button></div></div>
+  <div class="panel"><table class="table"><thead><tr><th>EMPRESA</th><th>TIPO</th><th>ESTADO</th><th>CONDUCTORES</th></tr></thead><tbody id="companiesBody"></tbody></table></div>
+</section>
+<section class="view" id="view-eventos">
+  <div class="pagehead"><div><div class="eyebrow">COMUNIDAD</div><h2>Eventos</h2><p>Convoys, reuniones y actividades de S&C Elite.</p></div><div class="headactions"><button class="btn primary" id="addEvent">+ Nuevo evento</button></div></div>
+  <div class="panel"><table class="table"><thead><tr><th>EVENTO</th><th>FECHA</th><th>LUGAR</th><th>ESTADO</th></tr></thead><tbody id="eventsBody"></tbody></table></div>
+</section>
+<section class="view" id="view-mercado">
+  <div class="pagehead"><div><div class="eyebrow">COMUNIDAD</div><h2>Mercado</h2><p>Compra y consulta vehículos, remolques y servicios disponibles para S&amp;C Elite.</p></div><div class="headactions"><button class="btn" id="refreshMarket">Actualizar mercado</button></div></div>
+  <div class="maintenanceCard">
+    <div class="maintenanceIcon">🔧</div>
+    <div><div class="maintenanceTitle">MERCADO WEB EN MANTENIMIENTO · <span>PROXIMAMENTE</span></div><div class="maintenanceText">El Mercado Web de S&amp;C Elite Convoys está temporalmente en mantenimiento mientras realizamos mejoras para ofrecer un servicio más estable, seguro y completo. Volverá a estar disponible próximamente.</div></div>
+  </div>
+</section>
+<section class="view" id="view-aseguradora">
+  <div class="pagehead"><div><div class="eyebrow">PROTECCIÓN DE FLOTA</div><h2>Seguros de S&amp;C Elite</h2><p>Pólizas de camiones y remolques, accidentes de empleados y partes.</p></div><div class="headactions"><button class="btn" id="refreshInsurance">Actualizar</button></div></div>
+  <div class="maintenanceCard">
+    <div class="maintenanceIcon">🚨</div>
+    <div><div class="maintenanceTitle">ASEGURADORA EN MANTENIMIENTO · <span>PROXIMAMENTE</span></div><div class="maintenanceText">La sección de Aseguradora está temporalmente en mantenimiento mientras realizamos mejoras y ajustes para ofrecer un servicio de protección de flota más estable y completo. Volverá a estar disponible próximamente.</div></div>
+  </div>
+</section>
+</main>
+
+<aside class="right">
+  <div class="radioMini radioTop"><h4>S&C Elite FM · 9.90 FM</h4><p>Radio propia · señal musical integrada</p><div class="now"><div class="disc"></div><div><b id="miniTrack">Esperando canción…</b><div class="mini"><span class="livebadge">🔴 EN VIVO · EN DIRECTO</span> · S&C Elite FM</div></div></div><div class="radioBtns"><button class="smallbtn" id="miniPlay">▶ Reproducir</button><button class="smallbtn" id="miniPause">Ⅱ Pausa</button><button class="smallbtn" id="miniOpen">Abrir radio</button></div></div>
+  <div class="profilecard">
+    <div class="profiletop"><div class="bigavatar" id="bigAvatar">SA</div><div><strong id="rightUser">Saske</strong><div class="level" id="rightRole">Dueño de la empresa</div></div></div>
+    </div>
+  <div class="menuitem active" data-view="resumen"><div class="left"><div class="mi">€</div><div><b>Cuenta bancaria</b><div class="mini">Movimientos y préstamos</div></div></div><div class="arrow">›</div></div>
+  <div class="menuitem" data-view="lanzador"><div class="left"><div class="mi">□</div><div><b>Garaje</b><div class="mini">Camiones y remolques</div></div></div><div class="arrow">›</div></div>
+  <div class="menuitem" data-view="resumen"><div class="left"><div class="mi">↗</div><div><b>Economía</b><div class="mini">Gastos y beneficios</div></div></div><div class="arrow">›</div></div>
+  <div class="menuitem" data-view="resumen"><div class="left"><div class="mi">✓</div><div><b>Entregas</b><div class="mini">Rutas y beneficio neto</div></div></div><div class="arrow">›</div></div>
+  <div class="rightsep"></div>
+</aside>
+<aside class="chat">
+  <div class="chathead"><h3>Chat</h3><span class="chatbadge">S&C Elite</span></div>
+  <div class="chatmsgs" id="chatMsgs">
+    <div class="chatmsg"><div><span class="chatname">Saske</span> <span class="chattime">ahora</span></div><div class="chattext">Bienvenido al centro de control de S&C Elite.</div></div>
+    <div class="chatmsg"><div><span class="chatname">S&C Elite</span> <span class="chattime">sistema</span></div><div class="chattext">La radio FM 9.90 se reproduce directamente dentro de S&C Elite.</div></div>
+  </div>
+  <div class="chatcomposer"><textarea id="chatInput" class="input" placeholder="Enviar un mensaje"></textarea><button class="smallbtn" id="chatSend">➤</button></div>
+</aside>
+</div>
+</div>
+<div class="toast" id="toast"><div class="toastIcon">✓</div><div class="toastBody"><div class="toastEyebrow">CONFIRMACIÓN</div><div class="toastTitle" id="toastTitle">Operación completada</div><div class="toastText" id="toastText">Sesión iniciada.</div></div><button class="toastBtn" id="toastBtn">Entendido</button></div>
+<div class="modalShade" id="communityModal">
+  <div class="modalbox">
+    <div class="panelhead"><div><div class="eyebrow" id="modalEyebrow">COMUNIDAD</div><h3 id="modalTitle">Nueva empresa</h3></div><button class="closebtn" id="modalClose">×</button></div>
+    <div id="companyForm" class="modalSection">
+      <div class="field"><label>Nombre de la empresa</label><input class="input" id="companyName" placeholder="S&C Elite Transport"/></div>
+      <div class="field"><label>Tipo</label><select class="input" id="companyType"><option>VTC / Empresa</option><option>Logística</option><option>Autónomo</option></select></div>
+      <div class="field"><label>Conductores</label><input class="input" id="companyDrivers" type="number" min="0" value="1"/></div>
+      <button class="btn primary" id="saveCompany">Crear empresa</button>
+    </div>
+    <div id="eventForm" class="modalSection" style="display:none">
+      <div class="field"><label>Evento</label><input class="input" id="eventName" value="Convoy S&C Elite #01"/></div>
+      <div class="grid2"><div class="field"><label>Fecha</label><input class="input" id="eventDate" value="27/08/2026"/></div><div class="field"><label>Estado</label><select class="input" id="eventStatus"><option selected>En curso</option><option>Programado</option><option>Finalizado</option></select></div></div>
+      <div class="field"><label>Lugar</label><input class="input" id="eventPlace" value="Valencia → Soria"/></div>
+      <div class="field"><label>¿Dónde se hace?</label><input class="input" id="eventWhere" value="TruckersMP - Simulación 2"/></div>
+      <div class="field"><label>Reunión de la comunidad</label><input class="input" id="eventMeeting" value="27/08/2026 a las 11:00 · Programado en Discord"/></div>
+      <button class="btn primary" id="saveEvent">Modificar / Guardar</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="authShade" id="authShade">
+  <div class="authbox wide">
+    <div class="authhero">
+      <div class="eyebrow">COMUNIDAD · CONTROL · SEGURIDAD</div>
+      <h2 id="authTitle">Tu actividad de ETS2, protegida y siempre bajo control.</h2>
+      <p id="authSubtitle">Accede a tu perfil privado, consulta las versiones validadas y gestiona tu cuenta S&amp;C Elite.</p>
+      <div class="muted" style="font-size:12px;margin-top:8px"><span class="green">✓ Perfil privado</span> &nbsp; <span class="green">✓ Historial central</span> &nbsp; <span class="green">✓ Copias seguras</span></div>
+    </div>
+    <div class="authstep active" id="authLogin">
+      <div class="authportal">
+        <div class="authcard">
+          <div class="eyebrow">BIENVENIDO</div><h3>Iniciar sesión</h3>
+          <div class="field"><label>Usuario o correo</label><input class="input" id="loginUser" type="text" autocomplete="username" placeholder="Usuario o correo"></div>
+          <div class="field"><label>Contraseña</label><input class="input" id="loginPass" type="password" autocomplete="current-password" placeholder="Contraseña"></div>
+          <div class="authnote" style="margin-bottom:10px"><label style="display:flex;gap:8px;align-items:flex-start"><input id="rememberLogin" type="checkbox"><span><b>Recordar usuario y contraseña</b><br><span class="muted">La cuenta se guarda de forma local en este equipo.</span></span></label></div>
+          <button class="btn primary" id="loginBtn" style="width:100%">Entrar al portal</button>
+          <button class="btn ghost" id="forgotBtn" style="width:100%;margin-top:7px">He olvidado mi contraseña</button>
+        </div>
+        <div class="authcard">
+          <div class="eyebrow">NUEVO CONDUCTOR</div><h3>Crear cuenta</h3>
+          <div class="field"><label>Nombre de usuario</label><input class="input" id="regUser" type="text" autocomplete="username" placeholder="Nombre de usuario"></div>
+          <div class="field"><label>Nombre visible</label><input class="input" id="regName" placeholder="Nombre visible"></div>
+          <div class="field"><label>Correo electrónico</label><input class="input" id="regEmail" type="email" autocomplete="email" placeholder="Correo electrónico"></div>
+          <div class="field"><label>Contraseña</label><input class="input" id="regPass" type="password" autocomplete="new-password" placeholder="Contraseña"></div>
+          <div class="field"><label>Confirmar contraseña</label><input class="input" id="regConfirmPass" type="password" autocomplete="new-password" placeholder="Confirmar contraseña"></div>
+          <button class="btn primary" id="sendVerify" style="width:100%">Crear mi cuenta</button>
+          <div class="authnote" style="margin-top:10px">Después podrás verificar tu correo y acceder al portal.</div>
+        </div>
+      </div>
+    </div>
+    <div class="authstep" id="authForgot">
+      <div class="authcard">
+        <div class="eyebrow">S&amp;C ELITE · OLVIDASTE TU CONTRASEÑA</div>
+        <h3>Recuperar contraseña</h3>
+        <p>Accede al Hub de Saske. La sesión se guarda localmente en este equipo.</p>
+        <div class="field"><label>Correo electrónico</label><input class="input" id="forgotEmail" type="email" autocomplete="email" placeholder="Correo electrónico / Gmail"></div>
+        <div class="verifycode" id="forgotCode">793442</div>
+        <input class="input" id="forgotInput" inputmode="numeric" maxlength="6" placeholder="Escribe las 6 cifras" autocomplete="one-time-code" style="margin-top:10px">
+        <div class="authsuccess" id="forgotVerifiedMsg">Código confirmado correctamente.</div>
+        <div id="forgotPasswordStep" style="display:none;gap:10px;margin-top:10px">
+          <input class="input" id="forgotNewPass" type="password" autocomplete="new-password" placeholder="Nueva contraseña">
+          <input class="input" id="forgotConfirmPass" type="password" autocomplete="new-password" placeholder="Confirmar contraseña">
+          <button class="btn primary" id="forgotSuccess">Confirmación de recuperación de contraseña con éxito.</button>
+        </div>
+        <button class="btn primary" id="forgotConfirm" style="width:100%;margin-top:10px">Confirmar cuenta</button>
+        <button class="btn danger" id="forgotRegenerate" style="width:100%;margin-top:8px">Regenerar código</button>
+        <div class="authsuccess" id="forgotSuccessMsg">Recuperación de contraseña completada con éxito.</div>
+        <button class="btn ghost" id="forgotBack" style="width:100%;margin-top:8px">Volver a iniciar sesión</button>
+      </div>
+    </div>
+    <div class="authstep" id="authVerify">
+      <div class="authcard">
+        <div class="eyebrow">S&amp;C ELITE · SEGURIDAD</div><h3>Confirmar correo</h3>
+        <div class="authnote">Código enviado a <b id="verifyEmail"></b>.</div>
+        <div class="verifycode" id="verifyCode" style="margin-top:10px">000000</div>
+        <input class="input" id="verifyInput" inputmode="numeric" maxlength="6" placeholder="Introduce el código" style="margin-top:10px">
+        <button class="btn" id="openGmailVerify" style="width:100%;margin-top:8px">Abrir Gmail otra vez</button>
+        <button class="btn primary" id="verifyBtn" style="width:100%;margin-top:8px">Confirmar cuenta</button>
+        <button class="btn danger" id="resendBtn" style="width:100%;margin-top:8px">Regenerar código</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const views=$$('.view'); const navs=$$('.navbtn[data-view], .menuitem[data-view]');
+function toast(msg,type='info'){const t=$('#toast');const title=$('#toastTitle');const text=$('#toastText');if(type==='success'){title.textContent='Operación completada';text.textContent=msg||'Sesión iniciada.';}else if(type==='error'){title.textContent='No se pudo completar';text.textContent=msg||'Se ha producido un error.';}else{title.textContent='Información';text.textContent=msg||'';}t.classList.remove('success','error');if(type==='success')t.classList.add('success');if(type==='error')t.classList.add('error');t.classList.add('show');clearTimeout(window.__scToastTimer);if(type!=='success'){window.__scToastTimer=setTimeout(()=>{t.classList.remove('show','success','error')},4200);}}
+function showView(view){
+  views.forEach(v=>v.classList.toggle('active',v.id==='view-'+view));
+  $$('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+  $$('.menuitem[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+}
+navs.forEach(n=>n.addEventListener('click',()=>showView(n.dataset.view)));
+let user='';
+function initials(n){return n.split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase()}
+function setUser(n){ user=n; const role=n==='Carlos'?'Dirección/Manager':'Dueño de la Empresa - APP'; $('#topUser').textContent=n; $('#rightUser').textContent=n; $('#rightRole').textContent=role; $('#pageUser').textContent=n; $('#launchProfile').textContent=n; $('#topAvatar').textContent=initials(n); $('#bigAvatar').textContent=initials(n); if(typeof syncCommunityData==='function') syncCommunityData(); toast('Perfil activo: '+n); }
+$$('.profileSelect').forEach(card=>card.addEventListener('click',()=>setUser(card.dataset.user)));
+
+const LS={ets2:'scelite_ets2_path',radio:'scelite_radio_url',auth:'scelite_auth_verified',email:'scelite_auth_email'};
+async function applyETS2Path(p){
+  if(!p) return;
+  $('#ets2Path').value=p; localStorage.setItem(LS.ets2,p); $('#routeSaved').textContent='Encontrada'; $('#launchStatus').textContent='Instalación encontrada: '+p; toast('Instalación de ETS2 localizada');
+}
+$('#findETS2').onclick=async()=>{
+  if(window.desktopAPI){const p=await window.desktopAPI.findETS2(); if(p) await applyETS2Path(p); else toast('No se encontró ETS2 automáticamente. Usa «Examinar PC».');}
+  else toast('La búsqueda automática de ETS2 funciona en el Hub de Windows. En la web no se puede acceder a las carpetas del PC por seguridad.');
+};
+$('#pickETS2').onclick=async()=>{
+  if(window.desktopAPI){const p=await window.desktopAPI.chooseETS2(); if(p) await applyETS2Path(p);}
+  else toast('Este botón necesita el S&C Elite Hub de escritorio (.exe). Si estás viendo la web, abre el Hub de Windows.');
+};
+$('#openETS2Folder').onclick=async()=>{const p=$('#ets2Path').value.trim(); if(!p) return toast('Primero localiza ETS2'); if(window.desktopAPI){const ok=await window.desktopAPI.openFolder(p); if(!ok) toast('No se pudo abrir la carpeta');}};
+$('#steamETS2').onclick=async()=>{if(window.desktopAPI){const ok=await window.desktopAPI.launchSteam(); toast(ok?'Steam abierto automáticamente':'No se pudo abrir Steam. Comprueba que esté instalado.');}else toast('El botón de Steam funciona en el Hub de Windows. El navegador no puede iniciar programas locales directamente.');};
+
+  // Radio: S&C Elite FM 9.90 reproduce el audio directamente dentro de la propia app.
+  const radioPlayer=$('#radioPlayer');
+  function setRadioState(state){
+    const labels={
+      online:'S&C Elite FM · EN DIRECTO',
+      paused:'Radio pausada',
+      stopped:'Radio desconectada',
+      connecting:'Conectando con S&C Elite FM…',
+      unavailable:'Radio no disponible'
+    };
+    const normalized=labels[state]||state||labels.unavailable;
+    const stateElement=$('#radioState');
+    const summaryElement=$('#radioStatusSummary');
+    if(stateElement) stateElement.textContent=normalized;
+    if(summaryElement) summaryElement.textContent=normalized;
+    if(stateElement){
+      stateElement.classList.toggle('radioStateOnline',state==='online');
+      stateElement.classList.toggle('radioStatePaused',state==='paused');
+      stateElement.classList.toggle('radioStateStopped',state==='stopped'||state==='unavailable');
+    }
+  }
+  window.setRadioState=setRadioState;
+  const DEFAULT_RADIO_PAGE='https://www.radio-espana.es/cadena-100';
+const DEFAULT_RADIO_STREAM='https://flucast-m04-06.flumotion.com/cope/cadena100.mp3';
+let radioUrl=localStorage.getItem(LS.radio)||DEFAULT_RADIO_PAGE;
+let savedRadioStream=localStorage.getItem('scelite_radio_stream');
+let radioStream=(savedRadioStream && /^https?:\/\/[^\s]+$/i.test(savedRadioStream)) ? savedRadioStream : DEFAULT_RADIO_STREAM;
+if(savedRadioStream !== radioStream) localStorage.setItem('scelite_radio_stream', radioStream);
+$('#radioUrl').value=radioUrl;
+setRadioState('Radio no disponible');
+function loadRadio(){ $('#radioUrl').value=radioUrl; $('#radioState').textContent=radioUrl||'No configurada'; }
+$('#saveRadio').onclick=()=>{
+  radioUrl=$('#radioUrl').value.trim()||DEFAULT_RADIO_PAGE;
+  // If the user entered a direct audio URL, use it as the internal stream too.
+  if(/\.(mp3|aac|ogg|wav)(\?.*)?$/i.test(radioUrl)){
+    radioStream=radioUrl;
+    localStorage.setItem('scelite_radio_stream',radioStream);
+  }
+  localStorage.setItem(LS.radio,radioUrl);
+  loadRadio();
+  toast('Fuente de radio guardada.');
+};
+let radioVolume=parseFloat(localStorage.getItem('scelite_radio_volume')||'0.75');
+function setVolume(v){
+  radioVolume=Math.max(0,Math.min(1,v));
+  $('#topVolPct').textContent=Math.round(radioVolume*100)+'%';
+  $('#topVolume').value=radioVolume;
+  localStorage.setItem('scelite_radio_volume',String(radioVolume));
+  if(radioPlayer) radioPlayer.volume=radioVolume;
+}
+setVolume(radioVolume);
+$('#topVolume').addEventListener('input',e=>setVolume(parseFloat(e.target.value)));
+function effectiveStream(){
+  return /\.(mp3|aac|ogg|wav)(\?.*)?$/i.test(radioUrl) ? radioUrl : radioStream;
+}
+let radioAttempts=0;
+let userStoppedRadio=true;
+const fallbackStreams=[DEFAULT_RADIO_STREAM];
+async function playRadio(){
+  if(!radioUrl){ radioUrl=DEFAULT_RADIO_PAGE; loadRadio(); }
+  userStoppedRadio=false;
+  const stream=effectiveStream();
+  try{
+    radioPlayer.volume=radioVolume;
+    let playSrc=stream;
+    if(window.desktopAPI && window.desktopAPI.radioProxyUrl){
+      try{ playSrc=await window.desktopAPI.radioProxyUrl(stream); }catch{}
+    }
+    if(radioPlayer.src !== playSrc){ radioPlayer.src=playSrc; radioPlayer.load(); }
+    setRadioState('Conectando con S&C Elite FM…');
+    await radioPlayer.play();
+    radioAttempts=0;
+        setRadioState('online');
+  }catch(e){
+    if(radioAttempts < fallbackStreams.length-1){
+      radioAttempts += 1;
+      radioStream=fallbackStreams[radioAttempts];
+      localStorage.setItem('scelite_radio_stream',radioStream);
+      setTimeout(playRadio,800);
+      return;
+    }
+    setRadioState('Radio no disponible');
+    radioAttempts=0;
+    toast('No se pudo iniciar la radio. Comprueba la URL de la emisora o el stream.');
+  }
+}
+function pauseRadio(){
+  if(!radioPlayer || radioPlayer.paused) return;
+  userStoppedRadio=false;
+  try{radioPlayer.pause();}catch{}
+    setRadioState('paused');
+}
+async function stopRadio(){
+  userStoppedRadio=true;
+  try{radioPlayer.pause();radioPlayer.removeAttribute('src');radioPlayer.load();}catch{}
+    setRadioState('stopped');
+}
+$('#topPlay').onclick=playRadio; $('#topPause').onclick=pauseRadio; $('#topStop').onclick=stopRadio;
+$('#miniPlay').onclick=playRadio; $('#miniPause').onclick=pauseRadio; $('#radioPlay').onclick=playRadio; $('#radioPause').onclick=pauseRadio; $('#radioStop').onclick=stopRadio;
+$('#topChat')?.addEventListener('click',()=>showView('chat')); $('#topCall')?.addEventListener('click',()=>toast('Comunidad S&C Elite abierta')); $('#topStar')?.addEventListener('click',()=>toast('S&C Elite FM añadida a favoritos')); $('#topAward')?.addEventListener('click',()=>toast('Premios de S&C Elite próximamente'));
+radioPlayer.addEventListener('play',()=>setRadioState('Conectando con la emisión…'));
+radioPlayer.addEventListener('playing',()=>setRadioState('online'));
+radioPlayer.addEventListener('waiting',()=>setRadioState('Conectando…'));
+radioPlayer.addEventListener('error',()=>{
+  if(!userStoppedRadio){
+    if(radioAttempts < fallbackStreams.length-1){
+      radioAttempts += 1; radioStream=fallbackStreams[radioAttempts]; localStorage.setItem('scelite_radio_stream', radioStream); setTimeout(playRadio,700);
+    } else setRadioState('Radio no disponible');
+  }
+});
+radioPlayer.addEventListener('canplay',()=>{ if(!radioPlayer.paused) setRadioState('online'); });
+radioPlayer.addEventListener('pause',()=>{ if(!userStoppedRadio) setRadioState('paused'); });
+$('#openRadioUrl').onclick=playRadio;
+$('#miniOpen').onclick=()=>showView('radio');
+loadRadio();
+// Chat local
+$('#toastBtn').onclick=()=>$('#toast').classList.remove('show','success','error');
+$('#chatSend').onclick=()=>{const i=$('#chatInput');const t=i.value.trim();if(!t)return;const el=document.createElement('div');el.className='chatmsg';el.innerHTML='<div><span class="chatname">Saske</span> <span class="chattime">ahora</span></div><div class="chattext"></div>';el.querySelector('.chattext').textContent=t;$('#chatMsgs').appendChild(el);i.value='';$('#chatMsgs').scrollTop=$('#chatMsgs').scrollHeight;};
+$('#chatInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#chatSend').click();}});
+
+
+// Comunidad local funcional (sin servidor): datos base + usuarios registrados en este equipo.
+const communityData={
+  users:[{user:'Saske',name:'Saske',role:'Dueño de la empresa',status:'Verificado'},{user:'Carlos',name:'Carlos',role:'Dirección-Manager',status:'Verificado'}],
+  companies:[{name:'S&C Elite Convoys',type:'VTC / Empresa',status:'Activa',drivers:1}],
+  events:[{name:'Convoy S&C Elite #01',date:'27/08/2026',place:'Valencia → Soria',status:'En curso',where:'TruckersMP - Simulación 2',meeting:'27/08/2026 a las 11:00 · Programado en Discord'}]
+};
+function syncCommunityData(){
+  const regUser=localStorage.getItem('scelite_reg_user'), regName=localStorage.getItem('scelite_reg_name');
+  const verified=localStorage.getItem(LS.auth)==='1';
+  const baseUsers=[{user:'Saske',name:'Saske',role:'Dueño de la empresa',status:'Verificado'},{user:'Carlos',name:'Carlos',role:'Dirección-Manager',status:'Verificado'}];
+  const extraUsers=(regUser && !['saske','carlos'].includes(regUser.toLowerCase())) ? [{user:regUser,name:regName||regUser,role:'CONDUCTOR',status:verified?'Verificado':'Pendiente'}] : [];
+  const seen=new Set();
+  const users=[...baseUsers,...extraUsers].filter(u=>{const k=u.user.toLowerCase(); if(seen.has(k)) return false; seen.add(k); return true;});
+  communityData.users=users;
+  $('#communityUsersCount').textContent=String(users.length);
+  $('#communityOnlineCount').textContent=String(users.filter(u=>u.user===user).length?1:0);
+  $('#communityVerifiedCount').textContent=String(users.filter(u=>u.status==='Verificado').length);
+  $('#communityUsersBadge').textContent=users.length===1?'1 usuario':users.length+' usuarios';
+  $('#communityUsersBody').innerHTML=users.map(u=>`<tr><td><b>${u.user}</b><div class="mini">${u.name}</div></td><td>${u.role}</td><td><span class="badge ok">${u.status}</span></td></tr>`).join('');
+  $('#statCompanies').textContent=String(communityData.companies.length);
+  $('#statDrivers').textContent=String(users.filter(u=>u.role==='CONDUCTOR' || u.role==='JEFE DE LA APP' || u.role==='Dueño de la empresa' || u.role==='Dirección-Manager').length);
+  $('#statEvents').textContent=String(communityData.events.length);
+  $('#statKm').textContent='1.250 km';
+  $('#statActiveCompanies').textContent=String(communityData.companies.filter(c=>c.status==='Activa').length);
+  $('#companiesBody').innerHTML=communityData.companies.map(c=>`<tr><td><b>${c.name}</b></td><td>${c.type}</td><td><span class="badge ok">${c.status}</span></td><td>${c.drivers}</td></tr>`).join('');
+  $('#eventsBody').innerHTML=communityData.events.map(e=>`<tr><td><b>${e.name}</b><div class="mini">${e.where||''}</div><div class="mini">${e.meeting||''}</div></td><td>${e.date}</td><td>${e.place}</td><td><span class="badge ${e.status==='En curso'?'ok':'warn'}">${e.status}</span></td></tr>`).join('');
+}
+syncCommunityData();
+$('#refreshCommunity').onclick=()=>{syncCommunityData();toast('Comunidad actualizada');};
+const communityModal=$('#communityModal');
+const showCommunityModal=(mode)=>{communityModal.classList.add('show'); $('#companyForm').style.display=mode==='company'?'block':'none'; $('#eventForm').style.display=mode==='event'?'block':'none'; $('#modalTitle').textContent=mode==='company'?'Nueva empresa':'Nuevo evento';};
+const hideCommunityModal=()=>communityModal.classList.remove('show');
+$('#addCompany').onclick=()=>showCommunityModal('company');
+$('#addEvent').onclick=()=>showCommunityModal('event');
+$('#modalClose').onclick=hideCommunityModal;
+communityModal.addEventListener('click',e=>{if(e.target===communityModal)hideCommunityModal();});
+$('#saveCompany').onclick=()=>{const name=$('#companyName').value.trim(); if(!name){toast('Escribe un nombre para la empresa'); return;} const c={name,type:$('#companyType').value,status:'Activa',drivers:Number($('#companyDrivers').value||0)}; communityData.companies.push(c); syncCommunityData(); hideCommunityModal(); toast('Empresa creada correctamente');};
+$('#saveEvent').onclick=()=>{const e={name:$('#eventName').value.trim()||'Evento S&C Elite',date:$('#eventDate').value.trim()||'27/08/2026',place:$('#eventPlace').value.trim()||'Valencia → Soria',status:$('#eventStatus').value,where:$('#eventWhere').value.trim()||'TruckersMP - Simulación 2',meeting:$('#eventMeeting').value.trim()||'27/08/2026 a las 11:00 · Programado en Discord'}; const i=communityData.events.findIndex(x=>x.name===e.name); if(i>=0) communityData.events[i]=e; else communityData.events.push(e); syncCommunityData(); hideCommunityModal(); toast(i>=0?'Evento actualizado correctamente':'Evento creado correctamente');};
+$$('[data-mapfilter]').forEach(btn=>btn.addEventListener('click',()=>{
+  $$('[data-mapfilter]').forEach(b=>b.classList.toggle('active',b===btn));
+  const f=btn.dataset.mapfilter;
+  $$('#communityMap .mapPin').forEach(pin=>pin.style.display=(f==='all'||pin.dataset.type===f)?'block':'none');
+}));
+$$('#communityMap .mapPin').forEach(pin=>pin.addEventListener('click',()=>$('#mapTip').textContent=pin.dataset.label));
+$$('#communityMap [data-dgt]').forEach(el=>el.addEventListener('click',()=>$('#mapTip').textContent=el.dataset.dgt));
+$$('#communityMap .mapPin[data-label]').forEach(el=>el.addEventListener('click',()=>$('#mapTip').textContent=el.dataset.label));
+
+// Mapa ETS2: imagen exacta de referencia, ajuste automático, zoom centrado y arrastre.
+const mapCanvas=$('#mapCanvas'), ets2map=$('#mapStage');
+let mapScale=0.4, mapX=0, mapY=0, drag=false, sx=0, sy=0, baseX=0, baseY=0;
+const MAP_W=2048, MAP_H=1416;
+function getFitScale(){
+  const w=Math.max(320,mapCanvas.clientWidth), h=Math.max(260,mapCanvas.clientHeight);
+  return Math.min(w/MAP_W, h/MAP_H);
+}
+function applyMapTransform(){
+  ets2map.style.transform=`translate(${mapX}px,${mapY}px) scale(${mapScale})`;
+  $('#mapZoomReset').textContent=Math.round((mapScale/getFitScale())*100)+'%';
+}
+function setMapScale(v,centerX=null,centerY=null){
+  const old=mapScale;
+  const next=Math.max(getFitScale(),Math.min(3.2,v));
+  if(centerX!==null && centerY!==null && old!==next){
+    const rect=mapCanvas.getBoundingClientRect();
+    const cx=centerX-rect.left-rect.width/2;
+    const cy=centerY-rect.top-rect.height/2;
+    const k=next/old;
+    mapX = cx - (cx-mapX)*k;
+    mapY = cy - (cy-mapY)*k;
+  }
+  mapScale=next; applyMapTransform();
+}
+function fitMap(){mapScale=getFitScale();mapX=0;mapY=0;applyMapTransform();}
+$('#mapZoomIn').onclick=()=>setMapScale(mapScale*1.18);
+$('#mapZoomOut').onclick=()=>setMapScale(mapScale/1.18);
+$('#mapZoomFit').onclick=fitMap;
+$('#mapZoomReset').onclick=fitMap;
+mapCanvas.addEventListener('wheel',e=>{e.preventDefault();setMapScale(mapScale*(e.deltaY<0?1.12:1/1.12),e.clientX,e.clientY);},{passive:false});
+mapCanvas.addEventListener('dblclick',e=>setMapScale(mapScale*1.3,e.clientX,e.clientY));
+mapCanvas.addEventListener('pointerdown',e=>{if(e.target.closest('.mapPin'))return;drag=true;sx=e.clientX;sy=e.clientY;baseX=mapX;baseY=mapY;mapCanvas.classList.add('dragging');mapCanvas.setPointerCapture(e.pointerId);});
+mapCanvas.addEventListener('pointermove',e=>{if(!drag)return;mapX=baseX+(e.clientX-sx);mapY=baseY+(e.clientY-sy);applyMapTransform();});
+mapCanvas.addEventListener('pointerup',()=>{drag=false;mapCanvas.classList.remove('dragging');});
+mapCanvas.addEventListener('pointercancel',()=>{drag=false;mapCanvas.classList.remove('dragging');});
+window.addEventListener('resize',()=>{if(Math.abs(mapScale-getFitScale())<0.01) fitMap();});
+setTimeout(fitMap,50);
+
+
+// Sesión + creación de cuenta + verificación local.
+const authShade=$('#authShade'); let verifyCode='';
+function openAuth(step='login'){
+  authShade.classList.add('show');
+  $$('.authstep').forEach(s=>s.classList.remove('active'));
+  const target=step==='register'?'authLogin':('auth'+step.charAt(0).toUpperCase()+step.slice(1));
+  const el=$('#'+target); if(el) el.classList.add('active');
+  $('#authTitle').textContent='Tu actividad de ETS2, protegida y siempre bajo control.';
+  $('#authSubtitle').textContent='Accede a tu perfil privado, consulta las versiones validadas y gestiona tu cuenta S&C Elite.';
+  if(step==='forgot') resetForgotStep();
+}
+function closeAuth(){authShade.classList.remove('show');}
+
+// Cierre de sesión real: limpia solo la sesión activa y conserva los datos de la cuenta registrada.
+function logout(){
+  localStorage.removeItem(LS.auth);
+  localStorage.removeItem('scelite_session_user');
+  localStorage.removeItem('scelite_session_name');
+  localStorage.removeItem('scelite_auth_email');
+  user='';
+  document.body.classList.add('session-off');
+  const btn=$('#sessionBtn');
+  if(btn) btn.textContent='Iniciar sesión';
+  const tu=$('#topUser'); if(tu) tu.textContent='Sin sesión';
+  const ru=$('#rightUser'); if(ru) ru.textContent='Sin sesión';
+  const pu=$('#pageUser'); if(pu) pu.textContent='Sin sesión';
+  const lp=$('#launchProfile'); if(lp) lp.textContent='Sin sesión';
+  const av=$('#topAvatar'); if(av) av.textContent='--';
+  const bav=$('#bigAvatar'); if(bav) bav.textContent='--';
+  if(typeof syncCommunityData==='function') syncCommunityData();
+  openAuth('login');
+  toast('Sesión cerrada correctamente');
+}
+$('#sessionBtn').addEventListener('click',()=>{
+  if(localStorage.getItem(LS.auth)==='1' || user) logout();
+  else openAuth('login');
+});
+function decodeStoredPassword(value){
+  if(!value) return '';
+  try { return atob(value); } catch(e) { return value; }
+}
+function passwordsMatch(input, stored){
+  if(!stored) return false;
+  if(input===stored) return true; // compatibilidad con instalaciones antiguas
+  try { return btoa(input)===stored; } catch(e) { return false; }
+}
+$('#loginBtn')?.addEventListener('click',(ev)=>{ev.preventDefault();
+  const identifier=$('#loginUser').value.trim();
+  const pass=$('#loginPass').value;
+  const normalized=identifier.toLowerCase();
+  const regUser=(localStorage.getItem('scelite_reg_user')||'').trim();
+  const regEmail=(localStorage.getItem('scelite_reg_email')||'').trim().toLowerCase();
+  const savedPass=localStorage.getItem('scelite_reg_pass')||'';
+  const adminPass=localStorage.getItem('scelite_admin_pass')||'';
+
+  const matchesIdentity = normalized==='saske' || normalized===regUser.toLowerCase() || normalized===regEmail;
+  const matchesPassword = passwordsMatch(pass, savedPass) || passwordsMatch(pass, adminPass);
+  const isSaske = normalized==='saske' && matchesPassword;
+  const isRegistered = (normalized===regUser.toLowerCase() || normalized===regEmail) && matchesPassword;
+
+  if(!isSaske && !isRegistered){
+    toast('Usuario/correo o contraseña incorrectos','error');
+    return;
+  }
+
+  // Compatibilidad con cuentas creadas en betas anteriores: si las credenciales locales coinciden,
+  // la sesión se puede recuperar aunque el indicador de verificación no se hubiera migrado.
+  if(isRegistered && localStorage.getItem('scelite_verified')!=='1'){
+    localStorage.setItem('scelite_verified','1');
+  }
+  if($('#rememberLogin')?.checked){
+    localStorage.setItem('scelite_remember_user',identifier);
+  }
+  const activeName=isSaske?'Saske':(localStorage.getItem('scelite_reg_name')||regUser||identifier);
+  localStorage.setItem(LS.auth,'1');
+  localStorage.setItem('scelite_session_user',activeName);
+  localStorage.setItem('scelite_session_name',activeName);
+  localStorage.setItem('scelite_auth_email',isSaske?'':regEmail);
+  document.body.classList.remove('session-off');
+  const btn=$('#sessionBtn'); if(btn) btn.textContent='Cerrar sesión';
+  setUser(activeName);
+  closeAuth();
+  toast('Operación completada','success');
+});
+$('#goRegister')?.addEventListener('click',()=>openAuth('login'));
+$('#goLogin')?.addEventListener('click',()=>openAuth('login'));
+$('#forgotBtn')?.addEventListener('click',()=>openAuth('forgot'));
+$('#forgotBack')?.addEventListener('click',()=>openAuth('login'));
+function generateCode(){
+  verifyCode=String(Math.floor(100000+Math.random()*900000));
+  $('#verifyCode').textContent=verifyCode;
+  return verifyCode;
+}
+// Recuperación: correo + código de 6 cifras + nueva contraseña.
+let forgotCode=localStorage.getItem('scelite_forgot_code')||'793442';
+function resetForgotStep(){
+  $('#forgotPasswordStep').style.display='none';
+  $('#forgotNewPass').value=''; $('#forgotConfirmPass').value='';
+  $('#forgotVerifiedMsg').classList.remove('show'); $('#forgotSuccessMsg').classList.remove('show');
+  $('#forgotInput').value='';
+  $('#forgotCode').textContent=forgotCode;
+}
+$('#forgotConfirm').onclick=()=>{
+  const email=$('#forgotEmail').value.trim().toLowerCase();
+  const registeredEmail=(localStorage.getItem('scelite_reg_email')||'').trim().toLowerCase();
+  const value=$('#forgotInput').value.replace(/\D/g,'');
+  if(!email || !email.includes('@')){ toast('Introduce tu correo electrónico'); return; }
+  if(registeredEmail && email!==registeredEmail){ toast('Ese correo no coincide con la cuenta registrada'); return; }
+  if(value.length!==6){ toast('Escribe las 6 cifras'); return; }
+  if(value!==forgotCode){ toast('Código incorrecto'); return; }
+  $('#forgotPasswordStep').style.display='grid';
+  $('#forgotVerifiedMsg').classList.add('show');
+  $('#forgotNewPass').focus();
+};
+$('#forgotRegenerate').onclick=()=>{
+  forgotCode=String(Math.floor(100000+Math.random()*900000)); localStorage.setItem('scelite_forgot_code',forgotCode); $('#forgotCode').textContent=forgotCode; $('#forgotInput').value=''; $('#forgotVerifiedMsg').classList.remove('show'); toast('Código regenerado');
+};
+$('#forgotSuccess').onclick=()=>{
+  const a=$('#forgotNewPass').value, b=$('#forgotConfirmPass').value;
+  if(!a || a.length<6){ toast('La nueva contraseña debe tener al menos 6 caracteres'); return; }
+  if(a!==b){ toast('Las contraseñas no coinciden'); return; }
+  localStorage.setItem('scelite_reg_pass',btoa(a));
+  $('#forgotSuccessMsg').classList.add('show');
+  setTimeout(()=>{ openAuth('login'); $('#loginUser').value=localStorage.getItem('scelite_reg_user')||''; $('#loginPass').value=''; },1300);
+};
+$('#forgotInput').addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,6);});
+
+// Registro: Gmail para verificación; acceso por usuario/correo + contraseña.
+$('#sendVerify').onclick=async()=>{
+  const username=$('#regUser').value.trim(); const name=$('#regName').value.trim()||username; const email=$('#regEmail').value.trim(); const pass=$('#regPass').value; const confirm=$('#regConfirmPass').value;
+  if(!username||!email||!email.includes('@')||!pass){toast('Completa usuario, correo y contraseña');return;}
+  if(pass!==confirm){toast('Las contraseñas no coinciden');return;}
+  if(username.toLowerCase()==='saske'){toast('Ese usuario está reservado para el Jefe de la App');return;}
+  localStorage.setItem('scelite_reg_user',username); localStorage.setItem('scelite_reg_name',name); localStorage.setItem('scelite_reg_email',email); localStorage.setItem('scelite_reg_pass',btoa(pass));
+  $('#verifyEmail').textContent=email; generateCode(); openAuth('verify');
+  if(window.desktopAPI){ const url='https://mail.google.com/mail/u/0/?view=cm&fs=1&to='+encodeURIComponent(email)+'&su='+encodeURIComponent('Código de verificación S&C Elite')+'&body='+encodeURIComponent('Tu código de verificación es: '+verifyCode); try{await window.desktopAPI.openUrl(url);}catch{} }
+};
+$('#verifyInput').addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,6);});
+$('#verifyBtn').onclick=()=>{ const value=$('#verifyInput').value; if(value!==verifyCode){toast('Código incorrecto');return;} localStorage.setItem('scelite_verified','1'); openAuth('login'); toast('Cuenta confirmada correctamente'); };
+$('#resendBtn').onclick=()=>{generateCode();toast('Código regenerado');};
+$('#openGmailVerify').onclick=()=>{ if(window.desktopAPI) window.desktopAPI.openUrl('https://mail.google.com/mail/u/0/#inbox'); else window.open('https://mail.google.com/mail/u/0/#inbox','_blank'); };
+
+// Selector de tema: se guarda para recordar la preferencia del usuario.
+const THEME_KEY='scelite_theme';
+function applyTheme(theme){
+  document.body.setAttribute('data-theme',theme);
+  const btn=$('#themeToggle');
+  if(btn) btn.textContent = theme==='light' ? '🌙 Oscuro' : '☀️ Claro';
+}
+const initialTheme=localStorage.getItem(THEME_KEY)||'dark';
+applyTheme(initialTheme);
+$('#themeToggle').onclick=()=>{
+  const next=document.body.getAttribute('data-theme')==='light'?'dark':'light';
+  localStorage.setItem(THEME_KEY,next);
+  applyTheme(next);
+  toast(next==='light'?'Modo claro activado':'Modo oscuro activado');
+};
+
+
+// Seguridad de sesión: al abrir la web nunca se recupera automáticamente la sesión de Saske.
+// La sesión activa vive solo durante esta pestaña; al cerrar/reabrir la web se solicita iniciar sesión.
+(function initFreshSession(){
+  try {
+    localStorage.removeItem(LS.auth);
+    localStorage.removeItem('scelite_session_user');
+    localStorage.removeItem('scelite_session_name');
+    localStorage.removeItem('scelite_auth_email');
+  } catch(e) {}
+  user='';
+  document.body.classList.add('session-off');
+  const resetMap={
+    topUser:'Sin sesión', rightUser:'Sin sesión', pageUser:'Sin sesión',
+    launchProfile:'Sin sesión', topAvatar:'--', bigAvatar:'--'
+  };
+  Object.entries(resetMap).forEach(([id,val])=>{const el=$('#'+id); if(el) el.textContent=val;});
+  const btn=$('#sessionBtn'); if(btn) btn.textContent='Iniciar sesión';
+  if(typeof syncCommunityData==='function') syncCommunityData();
+  openAuth('login');
+})();
+
+// ===== S&C Elite 0.6.24 FINAL FUNCTIONALITY PATCH =====
+(function(){
+  const LANG_KEY='scelite_language';
+  const languageSelect=document.getElementById('languageSelect');
+  const sessionBtn=document.getElementById('sessionBtn');
+  const themeBtn=document.getElementById('themeToggle');
+
+  const dict={
+    en:{
+      'Centro de control · Beta 0.6.26.2':'Control Center · Beta 0.6.24',
+      'Resumen':'Overview','Versiones':'Versions','Cambio de perfil':'Change profile',
+      'Usuarios':'Users','Estadísticas':'Statistics','Mapa':'Map','Empresas':'Companies','Eventos':'Events','Mercado':'Market',
+      'OFICINAS':'OFFICES','Banco Central':'Central Bank','Hacienda':'Treasury','DGT Tráfico':'DGT Traffic',
+      'Aseguradora':'Insurance','Reating':'Ratings','Ministerio':'Ministry','Ofertas de empleo':'Job offers',
+      'HERRAMIENTAS':'TOOLS','Lanzador ETS2':'ETS2 Launcher','FM 9.90':'FM 9.90','Mods':'Mods','Configuración':'Settings',
+      'S&C Elite ETS2 Hub':'S&C Elite ETS2 Hub','Economía · Búsqueda ETS2 · Radio':'Economy · ETS2 Search · Radio',
+      'ACCESO PERSONAL':'PERSONAL ACCESS','Abrir lanzador':'Open launcher','CUENTA BANCARIA PRIVADA':'PRIVATE BANK ACCOUNT',
+      'Saldo, préstamos y todos los movimientos':'Balance, loans and all movements','Cuenta activa':'Active account',
+      'Saldo disponible':'Available balance','Saldo real':'Real balance','Deuda pendiente':'Outstanding debt',
+      'Cuota diaria':'Daily payment','Préstamos':'Loans','Financiación':'Financing','PRÉSTAMO':'LOAN',
+      'CANTIDAD':'AMOUNT','INTERÉS':'INTEREST','PENDIENTE':'OUTSTANDING','CUOTA':'PAYMENT',
+      'No hay préstamos activos en la versión actual.':'No active loans in the current version.',
+      'Resumen económico':'Economic summary','Ingresos':'Income','Gastos':'Expenses','Beneficio':'Profit',
+      'Movimientos':'Movements','Historial reciente':'Recent history','DESCRIPCIÓN':'DESCRIPTION','FECHA':'DATE','SALDO':'BALANCE','ESTADO':'STATUS',
+      'No hay movimientos registrados.':'No movements recorded.','HERRAMIENTA ETS2':'ETS2 TOOL',
+      'Gestor de instalación de Euro Truck Simulator 2':'Euro Truck Simulator 2 installation manager',
+      'Busca automáticamente tu instalación de ETS2 o selecciónala manualmente.':'Automatically find your ETS2 installation or select it manually.',
+      'Buscar instalación':'Find installation','Disponible':'Available','Ruta de eurotrucks2.exe':'Path to eurotrucks2.exe',
+      'Buscar ETS2':'Find ETS2','Examinar PC':'Browse PC','Abrir carpeta':'Open folder','Abrir Steam':'Open Steam',
+      'Perfil activo':'Active profile','Versión ETS2':'ETS2 version','Instalación':'Installation','No encontrada':'Not found',
+      'Preparado':'Ready','Telemetría':'Telemetry','Economía online':'Online economy','Próxima beta':'Next beta',
+      'S&C ELITE RADIO':'S&C ELITE RADIO','Tu radio propia integrada en el launcher.':'Your own radio integrated into the launcher.',
+      '▶ Reproducir aquí':'▶ Play here','Emisora configurada':'Configured station','ESTADO DE LA RADIO':'RADIO STATUS',
+      '▶ Reproducir':'▶ Play','Ⅱ Pausa':'Ⅱ Pause','■ Detener':'■ Stop','Configuración de la radio':'Radio settings',
+      'Radio web · volumen integrado':'Web radio · integrated volume','URL de la emisora':'Station URL','Guardar':'Save',
+      'Perfil de administración y control de la aplicación S&C Elite.':'Administration and control profile for the S&C Elite application.',
+      'Dueño de la Empresa - APP':'Company Owner - APP','Dirección/Manager':'Management/Manager','Cambiar a Carlos':'Switch to Carlos',
+      'DESARROLLO':'DEVELOPMENT','Versiones y betas':'Versions and betas',
+      'Historial de construcción del S&C Elite ETS2 Hub. Las versiones anteriores están archivadas y finalizadas.':'S&C Elite ETS2 Hub build history. Previous versions are archived and finalized.',
+      'Sesión + Radio S&C Elite + mejoras de interfaz':'Session + S&C Elite Radio + interface improvements',
+      'Versión en curso. Confirmación visual de inicio de sesión hasta «Entendido», selector multilingüe y mejoras de sesión, tema y controles.':'Current version. Login confirmation through “Understood”, multilingual selector, and session, theme and controls improvements.',
+      'EN CURSO':'IN PROGRESS','FINALIZADO':'FINALIZED',
+      'CONTENIDO':'CONTENT','Mods de S&C Elite':'S&C Elite Mods','Preparado para gestionar tus mods de ETS2 desde el launcher.':'Ready to manage your ETS2 mods from the launcher.',
+      'Instalado':'Installed','Gestor de mods':'Mod manager','Próximamente':'Coming soon',
+      'Usuarios registrados':'Registered users','Conectados ahora':'Online now','Verificados':'Verified',
+      'Lista de usuarios':'User list','USUARIO':'USER','ROL':'ROLE',
+      'Conductores':'Drivers','Kilómetros':'Kilometers','Actividad':'Activity','Operativa':'Operational',
+      'Rutas completadas':'Completed routes','Convoys realizados':'Convoys completed','Empresas activas':'Active companies',
+      'MAPA EN MANTENIMIENTO ·':'MAP UNDER MAINTENANCE ·','PROXIMAMENTE':'COMING SOON',
+      'Mapa ETS2':'ETS2 Map','Mapa activo':'Active map','Todo':'All','Mapa interactivo estilo Euro Truck Simulator 2 con zoom, desplazamiento y puntos de la comunidad.':'Interactive Euro Truck Simulator 2 style map with zoom, pan and community points.',
+      'Países de Europa':'European countries','España':'Spain','Portugal':'Portugal','Francia':'France','Bélgica':'Belgium','Países Bajos':'Netherlands','Alemania':'Germany','Suiza':'Switzerland','Italia':'Italy','Austria':'Austria','Chequia':'Czechia','Eslovaquia':'Slovakia','Polonia':'Poland','Dinamarca':'Denmark','Noruega':'Norway','Suecia':'Sweden','Finlandia':'Finland','Reino Unido':'United Kingdom','Irlanda':'Ireland','Islandia':'Iceland','Hungría':'Hungary','Croacia':'Croatia','Eslovenia':'Slovenia','Serbia':'Serbia'
+    },
+    fr:{'Resumen':'Résumé','Versiones':'Versions','Usuarios':'Utilisateurs','Estadísticas':'Statistiques','Mapa':'Carte','Empresas':'Entreprises','Eventos':'Événements','Mercado':'Marché','Configuración':'Paramètres','Cerrar sesión':'Se déconnecter','Iniciar sesión':'Se connecter','Reproducir':'Lecture','Pausa':'Pause','Detener':'Arrêter','FINALIZADO':'TERMINÉ','EN CURSO':'EN COURS','PROXIMAMENTE':'PROCHAINEMENT'},
+    pt:{'Resumen':'Resumo','Versiones':'Versões','Usuarios':'Utilizadores','Estadísticas':'Estatísticas','Mapa':'Mapa','Empresas':'Empresas','Eventos':'Eventos','Mercado':'Mercado','Configuración':'Definições','Cerrar sesión':'Terminar sessão','Iniciar sesión':'Iniciar sessão','Reproducir':'Reproduzir','Pausa':'Pausa','Detener':'Parar','FINALIZADO':'FINALIZADO','EN CURSO':'EM CURSO','PROXIMAMENTE':'EM BREVE'},
+    it:{'Resumen':'Panoramica','Versiones':'Versioni','Usuarios':'Utenti','Estadísticas':'Statistiche','Mapa':'Mappa','Empresas':'Aziende','Eventos':'Eventi','Mercado':'Mercato','Configuración':'Impostazioni','Cerrar sesión':'Disconnetti','Iniciar sesión':'Accedi','Reproducir':'Riproduci','Pausa':'Pausa','Detener':'Ferma','FINALIZADO':'FINALIZZATO','EN CURSO':'IN CORSO','PROXIMAMENTE':'PROSSIMAMENTE'},
+    ca:{'Resumen':'Resum','Versiones':'Versions','Usuarios':'Usuaris','Estadísticas':'Estadístiques','Mapa':'Mapa','Empresas':'Empreses','Eventos':'Esdeveniments','Mercado':'Mercat','Configuración':'Configuració','Cerrar sesión':'Tancar sessió','Iniciar sesión':'Iniciar sessió','Reproducir':'Reproduir','Pausa':'Pausa','Detener':'Atura','FINALIZADO':'FINALITZAT','EN CURSO':'EN CURS','PROXIMAMENTE':'PROPERAMENT'}
+  };
+  dict.es = {};
+
+  const originals = new WeakMap();
+  function remember(el){
+    if(el.nodeType===3){
+      if(!originals.has(el)) originals.set(el, el.nodeValue);
+    }else if(el.childNodes){
+      el.childNodes.forEach(remember);
+    }
+  }
+  document.body.childNodes.forEach(remember);
+
+  function translate(lang){
+    const map=dict[lang]||{};
+    function walk(node){
+      if(node.nodeType===3){
+        const base=originals.get(node);
+        if(base){
+          const key=base.trim();
+          if(map[key]){
+            const lead=base.match(/^\s*/)?.[0]||'', trail=base.match(/\s*$/)?.[0]||'';
+            node.nodeValue=lead+map[key]+trail;
+          }else if(lang==='es'){
+            node.nodeValue=base;
+          }
+        }
+      } else node.childNodes.forEach(walk);
+    }
+    walk(document.body);
+    if(sessionBtn){
+      const logged=localStorage.getItem('scelite_auth')==='1';
+      sessionBtn.textContent = lang==='en' ? (logged?'Sign out':'Sign in') :
+        lang==='fr' ? (logged?'Se déconnecter':'Se connecter') :
+        lang==='pt' ? (logged?'Terminar sessão':'Iniciar sessão') :
+        lang==='it' ? (logged?'Disconnetti':'Accedi') :
+        lang==='ca' ? (logged?'Tancar sessió':'Iniciar sessió') :
+        (logged?'Cerrar sesión':'Iniciar sesión');
+    }
+    const names={es:'Español',en:'English',fr:'Français',pt:'Português',it:'Italiano',ca:'Català'};
+    const n=names[lang]||'Español';
+    if(languageSelect){ languageSelect.setAttribute('data-current-language',n); }
+  }
+
+  function hardLogout(){
+    const keys=['scelite_auth','scelite_session_user','scelite_session_name','scelite_auth_email','scelite_verified','scelite_remember_user'];
+    keys.forEach(k=>{try{localStorage.removeItem(k)}catch{}});
+    sessionStorage.clear();
+    document.body.classList.add('session-off');
+    ['topUser','rightUser','pageUser','launchProfile'].forEach(id=>{const el=document.getElementById(id); if(el) el.textContent='Sin sesión';});
+    ['topAvatar','bigAvatar'].forEach(id=>{const el=document.getElementById(id); if(el) el.textContent='--';});
+    if(sessionBtn) sessionBtn.textContent='Iniciar sesión';
+    const auth=document.querySelector('#authShade'); if(auth){ auth.classList.add('show'); }
+    try{ if(typeof openAuth==='function') openAuth('login'); }catch{}
+  }
+
+  function toggleTheme(){
+    const next=document.body.getAttribute('data-theme')==='light'?'dark':'light';
+    localStorage.setItem('scelite_theme',next);
+    document.body.setAttribute('data-theme',next);
+    const lang=languageSelect?.value||localStorage.getItem(LANG_KEY)||'es';
+    const labels={es:next==='light'?'🌙 Oscuro':'☀️ Claro',en:next==='light'?'🌙 Dark':'☀️ Light',fr:next==='light'?'🌙 Sombre':'☀️ Clair',pt:next==='light'?'🌙 Escuro':'☀️ Claro',it:next==='light'?'🌙 Scuro':'☀️ Chiaro',ca:next==='light'?'🌙 Fosc':'☀️ Clar'};
+    if(themeBtn) themeBtn.textContent=labels[lang];
+  }
+
+  async function robustPlay(){
+    const p=document.getElementById('radioPlayer');
+    if(!p) return;
+    try{
+      if(typeof playRadio==='function'){ await playRadio(); }
+      else { p.play(); }
+    }catch{}
+  }
+  function robustPause(){
+    const p=document.getElementById('radioPlayer'); if(!p) return;
+    try{p.pause();}catch{}
+    if(typeof updateRadioText==='function') updateRadioText('Radio pausada','paused');
+  }
+  function robustStop(){
+    const p=document.getElementById('radioPlayer'); if(!p) return;
+    try{p.pause(); p.removeAttribute('src'); p.load();}catch{}
+    if(typeof updateRadioText==='function') updateRadioText('Radio Desconectada con éxito','stopped');
+  }
+
+  function bind(){
+    if(languageSelect){
+      languageSelect.value=localStorage.getItem(LANG_KEY)||'es';
+      languageSelect.onchange=()=>{localStorage.setItem(LANG_KEY,languageSelect.value); translate(languageSelect.value);};
+      translate(languageSelect.value);
+    }
+    if(sessionBtn) sessionBtn.onclick=hardLogout;
+    if(themeBtn) themeBtn.onclick=toggleTheme;
+    ['topPlay','miniPlay','radioPlay'].forEach(id=>{const el=document.getElementById(id); if(el) el.onclick=robustPlay;});
+    ['topPause','miniPause','radioPause'].forEach(id=>{const el=document.getElementById(id); if(el) el.onclick=robustPause;});
+    ['topStop','radioStop'].forEach(id=>{const el=document.getElementById(id); if(el) el.onclick=robustStop;});
+  }
+  // Never restore an old session when opening/reloading the site.
+  ['scelite_auth','scelite_session_user','scelite_session_name','scelite_auth_email'].forEach(k=>{try{localStorage.removeItem(k)}catch{}});
+  sessionStorage.clear();
+  document.body.classList.add('session-off');
+  document.addEventListener('DOMContentLoaded',bind,{once:true});
+  bind();
+})();
+
+
+(function(){
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const LANG_KEY='scelite_language';
+  const AUTH_KEY='scelite_auth';
+  const SESSION_KEYS=['scelite_auth','scelite_session_user','scelite_session_name','scelite_auth_email'];
+  const streamPrimary='https://cadena100-streamers-mp3.flumotion.com/cope/cadena100.mp3';
+  const streamFallback='https://flucast-rb01-01.flumotion.com/cope/cadena100.aac';
+
+  // Keep the version history exactly in descending order.
+  function enforceVersionOrder(){
+      const rows=[...document.querySelectorAll('.betaRow')];
+      const order=['0.6.26.2','0.6.25.1','0.6.24.1','0.6.23','0.6.22','0.6.21','0.6.20','0.6.19','0.6.18'];
+      const host=rows[0]?.parentElement;
+      if(!host) return;
+      const by=new Map(rows.map(r=>[(r.querySelector('.tag')?.textContent||'').trim(),r]));
+      order.forEach(v=>{const r=by.get(v); if(r) host.appendChild(r);});
+      const badge=host.parentElement?.querySelector('.badge.ok');
+      if(badge) badge.textContent='Beta 0.6.26.2 · Actual';
+      rows.forEach(r=>{
+        const v=(r.querySelector('.tag')?.textContent||'').trim();
+        const b=r.querySelector('.badge');
+        if(!b) return;
+        const active=v==='0.6.26.2';
+        b.textContent=active?'EN CURSO':'FINALIZADO';
+        b.classList.toggle('ok',active);
+        b.classList.toggle('final',!active);
+      });
+    }
+    // Session: always start fresh, and close the current session completely.
+  function setLoggedOutUI(){
+    document.body.classList.add('session-off');
+    ['topUser','rightUser','pageUser','launchProfile'].forEach(id=>{const el=$(id); if(el) el.textContent='Sin sesión';});
+    ['topAvatar','bigAvatar'].forEach(id=>{const el=$(id); if(el) el.textContent='--';});
+    const btn=$('sessionBtn'); if(btn) btn.textContent='Iniciar sesión';
+  }
+  function clearSession(){
+    SESSION_KEYS.forEach(k=>{try{localStorage.removeItem(k)}catch{}});
+    try{sessionStorage.clear();}catch{}
+    setLoggedOutUI();
+    const shade=$('authShade');
+    if(shade) shade.classList.add('show');
+    try{ if(typeof openAuth==='function') openAuth('login'); }catch{}
+  }
+  function bindSession(){
+    const b=$('sessionBtn');
+    if(b){ b.onclick=(e)=>{e.preventDefault(); clearSession();}; }
+  }
+
+  // Theme: persistent light/dark mode with a single final click handler.
+  function applyTheme(theme){
+    const t=theme==='light'?'light':'dark';
+    document.body.setAttribute('data-theme',t);
+    const b=$('themeToggle');
+    const l=localStorage.getItem(LANG_KEY)||'es';
+    const labels={
+      es:t==='light'?'🌙 Oscuro':'☀️ Claro',
+      en:t==='light'?'🌙 Dark':'☀️ Light',
+      fr:t==='light'?'🌙 Sombre':'☀️ Clair',
+      pt:t==='light'?'🌙 Escuro':'☀️ Claro',
+      it:t==='light'?'🌙 Scuro':'☀️ Chiaro',
+      ca:t==='light'?'🌙 Fosc':'☀️ Clar'
+    };
+    if(b) b.textContent=labels[l]||labels.es;
+    try{localStorage.setItem('scelite_theme',t)}catch{}
+  }
+  function bindTheme(){
+    applyTheme(localStorage.getItem('scelite_theme')||'dark');
+    const b=$('themeToggle');
+    if(b) b.onclick=(e)=>{e.preventDefault(); applyTheme(document.body.getAttribute('data-theme')==='light'?'dark':'light');};
+  }
+
+  // Language: exact UI phrases, then safe word-level fallback for untranslated text.
+  const D={
+    en:{
+      'Centro de control · Beta 0.6.26.2':'Control Center · Beta 0.6.24','Cerrar sesión':'Sign out','Iniciar sesión':'Sign in','Resumen':'Overview','Versiones':'Versions','Cambio de perfil':'Change profile','Usuarios':'Users','Estadísticas':'Statistics','Mapa':'Map','Empresas':'Companies','Eventos':'Events','Mercado':'Market','Configuración':'Settings','Banco Central':'Central Bank','Hacienda':'Treasury','DGT Tráfico':'DGT Traffic','Aseguradora':'Insurance','Reating':'Ratings','Ministerio':'Ministry','Ofertas de empleo':'Job offers','Lanzador ETS2':'ETS2 Launcher','Mods':'Mods','S&C Elite ETS2 Hub':'S&C Elite ETS2 Hub','Economía · Búsqueda ETS2 · Radio':'Economy · ETS2 Search · Radio','ACCESO PERSONAL':'PERSONAL ACCESS','Abrir lanzador':'Open launcher','CUENTA BANCARIA PRIVADA':'PRIVATE BANK ACCOUNT','Saldo disponible':'Available balance','Saldo real':'Real balance','Deuda pendiente':'Outstanding debt','Cuota diaria':'Daily payment','Préstamos':'Loans','Financiación':'Financing','Resumen económico':'Economic summary','Ingresos':'Income','Gastos':'Expenses','Beneficio':'Profit','Movimientos':'Movements','Historial reciente':'Recent history','Instalación':'Installation','No encontrada':'Not found','Preparado':'Ready','Telemetría':'Telemetry','Economía online':'Online economy','Próxima beta':'Next beta','S&C ELITE RADIO':'S&C ELITE RADIO','Tu radio propia integrada en el launcher.':'Your own radio integrated into the launcher.','▶ Reproducir aquí':'▶ Play here','Emisora configurada':'Configured station','ESTADO DE LA RADIO':'RADIO STATUS','▶ Reproducir':'▶ Play','Ⅱ Pausa':'Ⅱ Pause','■ Detener':'■ Stop','Configuración de la radio':'Radio settings','Radio web · volumen integrado':'Web radio · integrated volume','URL de la emisora':'Station URL','Guardar':'Save','Perfil activo':'Active profile','Dueño de la Empresa - APP':'Company Owner - APP','Dirección/Manager':'Management / Manager','Cambiar a Carlos':'Switch to Carlos','DESARROLLO':'DEVELOPMENT','Versiones y betas':'Versions and betas','EN CURSO':'IN PROGRESS','FINALIZADO':'FINALIZED','CONTENIDO':'CONTENT','Mods de S&C Elite':'S&C Elite Mods','Instalado':'Installed','Gestor de mods':'Mod manager','Próximamente':'Coming soon','Usuarios registrados':'Registered users','Conectados ahora':'Online now','Verificados':'Verified','Lista de usuarios':'User list','USUARIO':'USER','ROL':'ROLE','Conductores':'Drivers','Kilómetros':'Kilometers','Actividad':'Activity','Operativa':'Operational','Rutas completadas':'Completed routes','Convoys realizados':'Convoys completed','Empresas activas':'Active companies','MAPA EN MANTENIMIENTO ·':'MAP UNDER MAINTENANCE ·','PROXIMAMENTE':'COMING SOON','Mapa ETS2':'ETS2 Map','Mapa interactivo estilo Euro Truck Simulator 2 con zoom, desplazamiento y puntos de la comunidad.':'Interactive Euro Truck Simulator 2 map with zoom, pan and community points.','Todo':'All','Ajustar':'Fit','Señales oficiales usadas como iconos DGT en el mapa':'Official DGT signs used as map icons','Puntos de comunidad':'Community points','Convoy #01':'Convoy #01','🌍 Países de Europa':'🌍 European countries','Mapa activo':'Active map','🚦 Señales DGT':'🚦 DGT signs','Fuente oficial':'Official source','Empresas y VTC activas dentro de S&C Elite.':'Active companies and VTCs within S&C Elite.','Convoys, reuniones y actividades de S&C Elite.':'Convoys, meetings and S&C Elite activities.','Compra y consulta vehículos, remolques y servicios disponibles para S&C Elite.':'Buy and view vehicles, trailers and services available for S&C Elite.','🔧':'🔧','MERCADO WEB EN MANTENIMIENTO ·':'WEB MARKET UNDER MAINTENANCE ·','PROTECCIÓN DE FLOTA':'FLEET PROTECTION','Seguros de S&C Elite':'S&C Elite Insurance','Pólizas de camiones y remolques, accidentes de empleados y partes.':'Truck and trailer policies, employee accidents and claims.','🚨':'🚨','ASEGURADORA EN MANTENIMIENTO ·':'INSURANCE UNDER MAINTENANCE ·','Radio propia · señal musical integrada':'Own radio · integrated music signal','Abrir radio':'Open radio','Dueño de la empresa':'Company owner','Cuenta bancaria':'Bank account','Movimientos y préstamos':'Transactions and loans','Garaje':'Garage','Camiones y remolques':'Trucks and trailers','Economía':'Economy','Gastos y beneficios':'Expenses and profits','Entregas':'Deliveries','Rutas y beneficio neto':'Routes and net profit','Chat':'Chat','ahora':'now','Bienvenido al centro de control de S&C Elite.':'Welcome to the S&C Elite control center.','La radio FM 9.90 se reproduce directamente dentro de S&C Elite.':'FM 9.90 radio plays directly inside S&C Elite.','CONFIRMACIÓN':'CONFIRMATION','Operación completada':'Operation completed','Sesión iniciada.':'Session started.','Entendido':'Understood','Nueva empresa':'New company','Nombre de la empresa':'Company name','Tipo':'Type','Logística':'Logistics','Autónomo':'Self-employed','Crear empresa':'Create company','Evento':'Event','Fecha':'Date','Estado':'Status','En curso':'In progress','Programado':'Scheduled','Finalizado':'Finished','Lugar':'Location','¿Dónde se hace?':'Where is it held?','Reunión de la comunidad':'Community meeting','Modificar / Guardar':'Edit / Save','BIENVENIDO':'WELCOME','Usuario o correo':'Username or email','Contraseña':'Password','Recordar usuario y contraseña':'Remember username and password','Entrar al portal':'Enter portal','He olvidado mi contraseña':'I forgot my password','NUEVO CONDUCTOR':'NEW DRIVER','Crear cuenta':'Create account','Nombre de usuario':'Username','Nombre visible':'Display name','Correo electrónico':'Email','Confirmar contraseña':'Confirm password','Crear mi cuenta':'Create my account','Recuperar contraseña':'Recover password','Confirmar cuenta':'Confirm account','Regenerar código':'Regenerate code','Recuperación de contraseña completada con éxito.':'Password recovery completed successfully.','Volver a iniciar sesión':'Back to sign in'
+    },
+    fr:{'Cerrar sesión':'Se déconnecter','Iniciar sesión':'Se connecter','Resumen':'Résumé','Versiones':'Versions','Cambio de perfil':'Changer de profil','Usuarios':'Utilisateurs','Estadísticas':'Statistiques','Mapa':'Carte','Empresas':'Entreprises','Eventos':'Événements','Mercado':'Marché','Configuración':'Paramètres','Aseguradora':'Assurance','Lanzador ETS2':'Lanceur ETS2','Mods':'Mods','Cerrar':'Fermer','▶ Reproducir':'▶ Lecture','Ⅱ Pausa':'Ⅱ Pause','■ Detener':'■ Arrêter','Guardar':'Enregistrer','EN CURSO':'EN COURS','FINALIZADO':'TERMINÉ','PROXIMAMENTE':'PROCHAINEMENT','Versiones y betas':'Versions et bêtas','CONFIRMACIÓN':'CONFIRMATION','Operación completada':'Opération terminée','Sesión iniciada.':'Session ouverte.','Entendido':'Compris','Usuario o correo':'Nom d’utilisateur ou e-mail','Contraseña':'Mot de passe','Entrar al portal':'Entrer dans le portail','He olvidado mi contraseña':'Mot de passe oublié','Crear cuenta':'Créer un compte','Correo electrónico':'E-mail','Confirmar contraseña':'Confirmer le mot de passe'},
+    pt:{'Cerrar sesión':'Terminar sessão','Iniciar sesión':'Iniciar sessão','Resumen':'Resumo','Versiones':'Versões','Cambio de perfil':'Mudar perfil','Usuarios':'Utilizadores','Estadísticas':'Estatísticas','Mapa':'Mapa','Empresas':'Empresas','Eventos':'Eventos','Mercado':'Mercado','Configuración':'Definições','Aseguradora':'Seguros','Lanzador ETS2':'Launcher ETS2','Cerrar':'Fechar','▶ Reproducir':'▶ Reproduzir','Ⅱ Pausa':'Ⅱ Pausa','■ Detener':'■ Parar','Guardar':'Guardar','EN CURSO':'EM CURSO','FINALIZADO':'FINALIZADO','PROXIMAMENTE':'EM BREVE','Versiones y betas':'Versões e betas','CONFIRMACIÓN':'CONFIRMAÇÃO','Operación completada':'Operação concluída','Sesión iniciada.':'Sessão iniciada.','Entendido':'Entendido','Usuario o correo':'Utilizador ou e-mail','Contraseña':'Palavra-passe','Entrar al portal':'Entrar no portal','He olvidado mi contraseña':'Esqueci-me da palavra-passe','Crear cuenta':'Criar conta','Correo electrónico':'E-mail','Confirmar contraseña':'Confirmar palavra-passe'},
+    it:{'Cerrar sesión':'Disconnetti','Iniciar sesión':'Accedi','Resumen':'Panoramica','Versiones':'Versioni','Cambio de perfil':'Cambia profilo','Usuarios':'Utenti','Estadísticas':'Statistiche','Mapa':'Mappa','Empresas':'Aziende','Eventos':'Eventi','Mercado':'Mercato','Configuración':'Impostazioni','Aseguradora':'Assicurazione','Lanzador ETS2':'Launcher ETS2','Cerrar':'Chiudi','▶ Reproducir':'▶ Riproduci','Ⅱ Pausa':'Ⅱ Pausa','■ Detener':'■ Ferma','Guardar':'Salva','EN CURSO':'IN CORSO','FINALIZADO':'FINALIZZATO','PROXIMAMENTE':'PROSSIMAMENTE','Versiones y betas':'Versioni e beta','CONFIRMACIÓN':'CONFERMA','Operación completada':'Operazione completata','Sesión iniciada.':'Sessione avviata.','Entendido':'Capito','Usuario o correo':'Utente o e-mail','Contraseña':'Password','Entrar al portal':'Entra nel portale','He olvidado mi contraseña':'Ho dimenticato la password','Crear cuenta':'Crea account','Correo electrónico':'E-mail','Confirmar contraseña':'Conferma password'},
+    ca:{'Cerrar sesión':'Tancar sessió','Iniciar sesión':'Iniciar sessió','Resumen':'Resum','Versiones':'Versions','Cambio de perfil':'Canvia de perfil','Usuarios':'Usuaris','Estadísticas':'Estadístiques','Mapa':'Mapa','Empresas':'Empreses','Eventos':'Esdeveniments','Mercado':'Mercat','Configuración':'Configuració','Aseguradora':'Assegurança','Lanzador ETS2':'Llançador ETS2','Cerrar':'Tanca','▶ Reproducir':'▶ Reproduir','Ⅱ Pausa':'Ⅱ Pausa','■ Detener':'■ Atura','Guardar':'Desa','EN CURSO':'EN CURS','FINALIZADO':'FINALITZAT','PROXIMAMENTE':'PROPERAMENT','Versiones y betas':'Versions i betes','CONFIRMACIÓN':'CONFIRMACIÓ','Operación completada':'Operació completada','Sesión iniciada.':'Sessió iniciada.','Entendido':'Entès','Usuario o correo':'Usuari o correu','Contraseña':'Contrasenya','Entrar al portal':'Entrar al portal','He olvidado mi contraseña':'He oblidat la contrasenya','Crear cuenta':'Crear compte','Correo electrónico':'Correu electrònic','Confirmar contraseña':'Confirma la contrasenya'}
+  };
+
+  const originals=new Map();
+  function snap(node){
+    if(node.nodeType===3){ if(!originals.has(node)) originals.set(node,node.nodeValue); return; }
+    if(node.nodeType===1 && ['SCRIPT','STYLE','OPTION'].includes(node.tagName)) return;
+    node.childNodes.forEach(snap);
+  }
+  snap(document.body);
+
+  function translate(lang){
+    const map=D[lang]||{};
+    originals.forEach((base,node)=>{
+      const key=base.trim();
+      if(!key) return;
+      const translated=map[key];
+      if(translated){
+        const lead=base.slice(0,base.indexOf(key));
+        const trail=base.slice(base.indexOf(key)+key.length);
+        node.nodeValue=lead+translated+trail;
+      }else if(lang==='es') node.nodeValue=base;
+    });
+    const b=$('sessionBtn');
+    const logged=localStorage.getItem(AUTH_KEY)==='1';
+    const labels={es:logged?'Cerrar sesión':'Iniciar sesión',en:logged?'Sign out':'Sign in',fr:logged?'Se déconnecter':'Se connecter',pt:logged?'Terminar sessão':'Iniciar sessão',it:logged?'Disconnetti':'Accedi',ca:logged?'Tancar sessió':'Iniciar sessió'};
+    if(b) b.textContent=labels[lang]||labels.es;
+    applyTheme(localStorage.getItem('scelite_theme')||'dark');
+  }
+
+  function bindLanguage(){
+    const s=$('languageSelect'); if(!s) return;
+    s.onchange=()=>{localStorage.setItem(LANG_KEY,s.value); translate(s.value);};
+    s.value=localStorage.getItem(LANG_KEY)||'es';
+    translate(s.value);
+  }
+
+  function setRadioState(text){
+    try{ if(typeof window.setRadioState==='function') window.setRadioState(text); else {
+      const state=$('radioState'); if(state) state.textContent=text;
+    }}catch{}
+  }
+  // Control de radio corregido en 0.6.26.2:
+  // PLAY = iniciar/reanudar, PAUSA = pausar, STOP = detener y desconectar.
+  let radioControllerStopped=false;
+  async function radioPlay(){
+    const p=$('radioPlayer'); if(!p) return;
+    radioControllerStopped=false;
+    p.volume=parseFloat(localStorage.getItem('scelite_radio_volume')||'0.75');
+    try{
+      // Si ya existe una fuente, PLAY simplemente reanuda.
+      if(p.src){
+        setRadioState('Conectando con S&C Elite FM…');
+        await p.play();
+        setRadioState('online');
+        return;
+      }
+      const urls=[streamPrimary,streamFallback];
+      for(let i=0;i<urls.length;i++){
+        try{
+          p.crossOrigin='anonymous';
+          p.src=urls[i];
+          p.load();
+          setRadioState('Conectando con S&C Elite FM…');
+          await p.play();
+          setRadioState('online');
+          return;
+        }catch(e){
+          p.removeAttribute('src');
+          p.load();
+          if(i===urls.length-1) throw e;
+        }
+      }
+    }catch(e){
+      setRadioState('Radio no disponible');
+      try{toast('No se pudo iniciar la radio. Comprueba la conexión.','error')}catch{}
+    }
+  }
+  function radioPause(){
+    const p=$('radioPlayer'); if(!p) return;
+    radioControllerStopped=false;
+    try{p.pause();}catch{}
+    setRadioState('paused');
+  }
+  function radioStop(){
+    const p=$('radioPlayer'); if(!p) return;
+    radioControllerStopped=true;
+    try{p.pause(); p.removeAttribute('src'); p.load();}catch{}
+    setRadioState('stopped');
+  }
+  function bindRadio(){
+    ['topPlay','miniPlay','radioPlay','openRadioUrl'].forEach(id=>{
+      const e=$(id);
+      if(e) e.onclick=(ev)=>{ev.preventDefault(); void radioPlay();};
+    });
+    ['topPause','miniPause','radioPause'].forEach(id=>{
+      const e=$(id);
+      if(e) e.onclick=(ev)=>{ev.preventDefault(); radioPause();};
+    });
+    ['topStop','radioStop'].forEach(id=>{
+      const e=$(id);
+      if(e) e.onclick=(ev)=>{ev.preventDefault(); radioStop();};
+    });
+  }
+
+  function init(){
+    enforceVersionOrder();
+    // Never restore old auth/session when opening or reloading.
+    clearSession();
+    bindSession();
+    bindTheme();
+    bindLanguage();
+    bindRadio();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
+  window.addEventListener('pageshow',()=>{bindSession();bindTheme();bindLanguage();bindRadio();});
+})();
+
+// ===== S&C Elite · selector multilingüe accesible =====
+// El catálogo se conserva localmente: no depende de servicios externos ni envía textos del usuario.
+(function multilingualHub(){
+  'use strict';
+  const LANGUAGE_KEY='scelite_language';
+  const languages={
+    es:{name:'Español',flag:'🇪🇸',locale:'es-ES',pageTitle:'S&C Elite ETS2 Hub · Beta 0.6.26.2'},
+    en:{name:'English',flag:'🇬🇧',locale:'en-GB',pageTitle:'S&C Elite ETS2 Hub · Beta 0.6.26.2'},
+    fr:{name:'Français',flag:'🇫🇷',locale:'fr-FR',pageTitle:'S&C Elite ETS2 Hub · Beta 0.6.26.2'},
+    pt:{name:'Português',flag:'🇵🇹',locale:'pt-PT',pageTitle:'S&C Elite ETS2 Hub · Beta 0.6.26.2'},
+    it:{name:'Italiano',flag:'🇮🇹',locale:'it-IT',pageTitle:'S&C Elite ETS2 Hub · Beta 0.6.26.2'},
+    ca:{name:'Català',flag:'🏴',locale:'ca-ES',pageTitle:'S&C Elite ETS2 Hub · Beta 0.6.26.2'}
+  };
+  const languageIndex={en:0,fr:1,pt:2,it:3,ca:4};
+  const catalog={
+    'Centro de control · Beta 0.6.26.2':['Control Center · Beta 0.6.24','Centre de contrôle · Bêta 0.6.24','Centro de controlo · Beta 0.6.24','Centro di controllo · Beta 0.6.24','Centre de control · Beta 0.6.24'],
+    '🔴 EN VIVO · EN DIRECTO':['🔴 LIVE · ON AIR','🔴 EN DIRECT · EN LIGNE','🔴 EM DIRETO · NO AR','🔴 IN DIRETTA · IN ONDA','🔴 EN DIRECTE · EN ANTENA'],
+    'S&C Elite FM · EN DIRECTO':['S&C Elite FM · ON AIR','S&C Elite FM · EN DIRECT','S&C Elite FM · EM DIRETO','S&C Elite FM · IN DIRETTA','S&C Elite FM · EN DIRECTE'],
+    '● Actualización automática':['● Auto refresh','● Mise à jour automatique','● Atualização automática','● Aggiornamento automatico','● Actualització automàtica'],
+    'MI CUENTA':['MY ACCOUNT','MON COMPTE','A MINHA CONTA','IL MIO ACCOUNT','EL MEU COMPTE'],
+    'COMUNIDAD':['COMMUNITY','COMMUNAUTÉ','COMUNIDADE','COMUNITÀ','COMUNITAT'],
+    'OFICINAS':['OFFICES','BUREAUX','ESCRITÓRIOS','UFFICI','OFICINES'],
+    'HERRAMIENTAS':['TOOLS','OUTILS','FERRAMENTAS','STRUMENTI','EINES'],
+    'Resumen':['Overview','Vue d’ensemble','Resumo','Panoramica','Resum'],
+    'Versiones':['Versions','Versions','Versões','Versioni','Versions'],
+    'Cambio de perfil':['Change profile','Changer de profil','Mudar perfil','Cambia profilo','Canvia de perfil'],
+    'Usuarios':['Users','Utilisateurs','Utilizadores','Utenti','Usuaris'],
+    'Estadísticas':['Statistics','Statistiques','Estatísticas','Statistiche','Estadístiques'],
+    'Mapa':['Map','Carte','Mapa','Mappa','Mapa'],
+    'Empresas':['Companies','Entreprises','Empresas','Aziende','Empreses'],
+    'Eventos':['Events','Événements','Eventos','Eventi','Esdeveniments'],
+    'Mercado':['Market','Marché','Mercado','Mercato','Mercat'],
+    'Banco Central':['Central Bank','Banque centrale','Banco Central','Banca centrale','Banc Central'],
+    'Hacienda':['Treasury','Trésor public','Tesouro','Tesoro','Hisenda'],
+    'DGT Tráfico':['DGT Traffic','DGT Circulation','DGT Trânsito','DGT Traffico','DGT Trànsit'],
+    'Aseguradora':['Insurance','Assurance','Seguros','Assicurazione','Asseguradora'],
+    'Reating':['Ratings','Évaluations','Avaliações','Valutazioni','Valoracions'],
+    'Ministerio':['Ministry','Ministère','Ministério','Ministero','Ministeri'],
+    'Ofertas de empleo':['Job offers','Offres d’emploi','Ofertas de emprego','Offerte di lavoro','Ofertes de feina'],
+    'Lanzador ETS2':['ETS2 Launcher','Lanceur ETS2','Launcher ETS2','Launcher ETS2','Llançador ETS2'],
+    'Configuración':['Settings','Paramètres','Definições','Impostazioni','Configuració'],
+    'Economía · Búsqueda ETS2 · Radio':['Economy · ETS2 search · Radio','Économie · Recherche ETS2 · Radio','Economia · Pesquisa ETS2 · Rádio','Economia · Ricerca ETS2 · Radio','Economia · Cerca ETS2 · Ràdio'],
+    'ACCESO PERSONAL':['PERSONAL ACCESS','ACCÈS PERSONNEL','ACESSO PESSOAL','ACCESSO PERSONALE','ACCÉS PERSONAL'],
+    'Cuenta bancaria de':['Bank account of','Compte bancaire de','Conta bancária de','Conto bancario di','Compte bancari de'],
+    'Saldo, préstamos, entregas y todos los movimientos del conductor seleccionado.':['Balance, loans, deliveries and every transaction for the selected driver.','Solde, prêts, livraisons et toutes les opérations du conducteur sélectionné.','Saldo, empréstimos, entregas e todos os movimentos do condutor selecionado.','Saldo, prestiti, consegne e tutti i movimenti del conducente selezionato.','Saldo, préstecs, lliuraments i tots els moviments del conductor seleccionat.'],
+    'Abrir lanzador':['Open launcher','Ouvrir le lanceur','Abrir launcher','Apri launcher','Obre el llançador'],
+    'CUENTA BANCARIA PRIVADA':['PRIVATE BANK ACCOUNT','COMPTE BANCAIRE PRIVÉ','CONTA BANCÁRIA PRIVADA','CONTO BANCARIO PRIVATO','COMPTE BANCARI PRIVAT'],
+    'Saldo, préstamos y todos los movimientos':['Balance, loans and all transactions','Solde, prêts et toutes les opérations','Saldo, empréstimos e todos os movimentos','Saldo, prestiti e tutti i movimenti','Saldo, préstecs i tots els moviments'],
+    'Cuenta activa':['Active account','Compte actif','Conta ativa','Conto attivo','Compte actiu'],
+    'Saldo disponible':['Available balance','Solde disponible','Saldo disponível','Saldo disponibile','Saldo disponible'],
+    'Saldo real':['Actual balance','Solde réel','Saldo real','Saldo reale','Saldo real'],
+    'Deuda pendiente':['Outstanding debt','Dette restante','Dívida pendente','Debito residuo','Deute pendent'],
+    'Cuota diaria':['Daily payment','Paiement quotidien','Prestação diária','Rata giornaliera','Quota diària'],
+    'Préstamos':['Loans','Prêts','Empréstimos','Prestiti','Préstecs'],
+    'Financiación':['Financing','Financement','Financiamento','Finanziamento','Finançament'],
+    'PRÉSTAMO':['LOAN','PRÊT','EMPRÉSTIMO','PRESTITO','PRÉSTEC'],
+    'CANTIDAD':['AMOUNT','MONTANT','MONTANTE','IMPORTO','QUANTITAT'],
+    'INTERÉS':['INTEREST','INTÉRÊT','JURO','INTERESSE','INTERÈS'],
+    'PENDIENTE':['OUTSTANDING','RESTANT','PENDENTE','RESIDUO','PENDENT'],
+    'CUOTA':['PAYMENT','ÉCHÉANCE','PRESTAÇÃO','RATA','QUOTA'],
+    'No hay préstamos activos en la versión actual.':['There are no active loans in the current version.','Aucun prêt actif dans la version actuelle.','Não existem empréstimos ativos na versão atual.','Non ci sono prestiti attivi nella versione corrente.','No hi ha préstecs actius en la versió actual.'],
+    'Resumen económico':['Economic summary','Résumé économique','Resumo económico','Riepilogo economico','Resum econòmic'],
+    'Ingresos':['Income','Revenus','Receitas','Entrate','Ingressos'],
+    'Gastos':['Expenses','Dépenses','Despesas','Spese','Despeses'],
+    'Beneficio':['Profit','Bénéfice','Lucro','Profitto','Benefici'],
+    'Movimientos':['Transactions','Opérations','Movimentos','Movimenti','Moviments'],
+    'Historial reciente':['Recent history','Historique récent','Histórico recente','Cronologia recente','Historial recent'],
+    'DESCRIPCIÓN':['DESCRIPTION','DESCRIPTION','DESCRIÇÃO','DESCRIZIONE','DESCRIPCIÓ'],
+    'FECHA':['DATE','DATE','DATA','DATA','DATA'],
+    'SALDO':['BALANCE','SOLDE','SALDO','SALDO','SALDO'],
+    'ESTADO':['STATUS','STATUT','ESTADO','STATO','ESTAT'],
+    'No hay movimientos registrados.':['No transactions have been recorded.','Aucune opération enregistrée.','Não existem movimentos registados.','Nessun movimento registrato.','No hi ha moviments registrats.'],
+    'HERRAMIENTA ETS2':['ETS2 TOOL','OUTIL ETS2','FERRAMENTA ETS2','STRUMENTO ETS2','EINA ETS2'],
+    'Gestor de instalación de Euro Truck Simulator 2':['Euro Truck Simulator 2 installation manager','Gestionnaire d’installation d’Euro Truck Simulator 2','Gestor de instalação do Euro Truck Simulator 2','Gestore dell’installazione di Euro Truck Simulator 2','Gestor d’instal·lació d’Euro Truck Simulator 2'],
+    'Busca automáticamente tu instalación de ETS2 o selecciónala manualmente.':['Find your ETS2 installation automatically or select it manually.','Trouvez automatiquement votre installation ETS2 ou sélectionnez-la manuellement.','Encontre automaticamente a instalação do ETS2 ou selecione-a manualmente.','Trova automaticamente l’installazione di ETS2 oppure selezionala manualmente.','Cerca automàticament la instal·lació d’ETS2 o selecciona-la manualment.'],
+    'Buscar instalación':['Find installation','Rechercher l’installation','Procurar instalação','Cerca installazione','Cerca la instal·lació'],
+    'Disponible':['Available','Disponible','Disponível','Disponibile','Disponible'],
+    'Ruta de eurotrucks2.exe':['Path to eurotrucks2.exe','Chemin vers eurotrucks2.exe','Caminho para eurotrucks2.exe','Percorso di eurotrucks2.exe','Camí a eurotrucks2.exe'],
+    'Buscar ETS2':['Find ETS2','Rechercher ETS2','Procurar ETS2','Cerca ETS2','Cerca ETS2'],
+    'Examinar PC':['Browse PC','Parcourir le PC','Explorar PC','Sfoglia PC','Explora l’ordinador'],
+    'Abrir carpeta':['Open folder','Ouvrir le dossier','Abrir pasta','Apri cartella','Obre la carpeta'],
+    'Abrir Steam':['Open Steam','Ouvrir Steam','Abrir Steam','Apri Steam','Obre Steam'],
+    'Pulsa «Buscar ETS2» para localizar una instalación habitual de Steam. «Abrir Steam» usará el protocolo de Steam de Windows directamente.':['Press “Find ETS2” to locate a typical Steam installation. “Open Steam” uses the Windows Steam protocol directly.','Appuyez sur « Rechercher ETS2 » pour localiser une installation Steam habituelle. « Ouvrir Steam » utilise directement le protocole Steam de Windows.','Prima “Procurar ETS2” para localizar uma instalação Steam habitual. “Abrir Steam” utiliza diretamente o protocolo Steam do Windows.','Premi “Cerca ETS2” per trovare una normale installazione Steam. “Apri Steam” usa direttamente il protocollo Steam di Windows.','Prem “Cerca ETS2” per localitzar una instal·lació habitual d’Steam. “Obre Steam” utilitza directament el protocol d’Steam de Windows.'],
+    'Integración S&C Elite':['S&C Elite integration','Intégration S&C Elite','Integração S&C Elite','Integrazione S&C Elite','Integració S&C Elite'],
+    'Perfil activo':['Active profile','Profil actif','Perfil ativo','Profilo attivo','Perfil actiu'],
+    'Versión ETS2':['ETS2 version','Version ETS2','Versão ETS2','Versione ETS2','Versió ETS2'],
+    'Instalación':['Installation','Installation','Instalação','Installazione','Instal·lació'],
+    'No encontrada':['Not found','Introuvable','Não encontrada','Non trovata','No trobada'],
+    'Preparado':['Ready','Prêt','Pronto','Pronto','Preparat'],
+    'Telemetría':['Telemetry','Télémétrie','Telemetria','Telemetria','Telemetria'],
+    'Economía online':['Online economy','Économie en ligne','Economia online','Economia online','Economia en línia'],
+    'Próxima beta':['Next beta','Prochaine bêta','Próxima beta','Prossima beta','Pròxima beta'],
+    'S&C ELITE RADIO':['S&C ELITE RADIO','RADIO S&C ELITE','RÁDIO S&C ELITE','RADIO S&C ELITE','RÀDIO S&C ELITE'],
+    'Tu radio propia integrada en el launcher.':['Your own radio integrated into the launcher.','Votre propre radio intégrée au lanceur.','A sua própria rádio integrada no launcher.','La tua radio integrata nel launcher.','La teva ràdio integrada al llançador.'],
+    '▶ Reproducir aquí':['▶ Play here','▶ Lire ici','▶ Reproduzir aqui','▶ Riproduci qui','▶ Reprodueix aquí'],
+    'Radio oficial de S&C Elite':['Official S&C Elite radio','Radio officielle de S&C Elite','Rádio oficial da S&C Elite','Radio ufficiale di S&C Elite','Ràdio oficial d’S&C Elite'],
+    'Emisora configurada':['Configured station','Station configurée','Estação configurada','Stazione configurata','Emissora configurada'],
+    'ESTADO DE LA RADIO':['RADIO STATUS','ÉTAT DE LA RADIO','ESTADO DA RÁDIO','STATO DELLA RADIO','ESTAT DE LA RÀDIO'],
+    '▶ Reproducir':['▶ Play','▶ Lecture','▶ Reproduzir','▶ Riproduci','▶ Reprodueix'],
+    'Ⅱ Pausa':['Ⅱ Pause','Ⅱ Pause','Ⅱ Pausa','Ⅱ Pausa','Ⅱ Pausa'],
+    '■ Detener':['■ Stop','■ Arrêter','■ Parar','■ Ferma','■ Atura'],
+    'Configuración de la radio':['Radio settings','Paramètres de la radio','Definições da rádio','Impostazioni radio','Configuració de la ràdio'],
+    'Radio web · volumen integrado':['Web radio · integrated volume','Radio web · volume intégré','Rádio web · volume integrado','Radio web · volume integrato','Ràdio web · volum integrat'],
+    'URL de la emisora':['Station URL','URL de la station','URL da estação','URL della stazione','URL de l’emissora'],
+    'Guardar':['Save','Enregistrer','Guardar','Salva','Desa'],
+    'La URL que has indicado (https://www.radio-espana.es/cadena-100) se usa como referencia. La música se reproduce directamente dentro de S&C Elite mediante el stream de audio, sin abrir ni enviar al navegador. El control de volumen permanece en la barra superior.':['The URL you entered is used as a reference. Music plays directly within S&C Elite through the audio stream, without opening or sending anything to the browser. Volume stays in the top bar.','L’URL indiquée sert de référence. La musique est lue directement dans S&C Elite via le flux audio, sans ouvrir ni envoyer quoi que ce soit au navigateur. Le volume reste dans la barre supérieure.','O URL indicado é usado como referência. A música é reproduzida diretamente no S&C Elite através do stream de áudio, sem abrir nem enviar nada ao navegador. O volume permanece na barra superior.','L’URL indicato viene usato come riferimento. La musica viene riprodotta direttamente in S&C Elite tramite lo stream audio, senza aprire né inviare nulla al browser. Il volume resta nella barra superiore.','L’URL indicat s’utilitza com a referència. La música es reprodueix directament a S&C Elite mitjançant l’stream d’àudio, sense obrir ni enviar res al navegador. El volum es manté a la barra superior.'],
+    'Perfil de administración y control de la aplicación S&C Elite.':['Administration and control profile for the S&C Elite app.','Profil d’administration et de contrôle de l’application S&C Elite.','Perfil de administração e controlo da aplicação S&C Elite.','Profilo di amministrazione e controllo dell’app S&C Elite.','Perfil d’administració i control de l’aplicació S&C Elite.'],
+    'Dueño de la Empresa - APP':['Company Owner - APP','Propriétaire de l’entreprise - APP','Proprietário da empresa - APP','Proprietario dell’azienda - APP','Propietari de l’empresa - APP'],
+    'Dirección/Manager':['Management / Manager','Direction / Manager','Direção / Gestor','Direzione / Manager','Direcció / Gestor'],
+    'Cambiar a Carlos':['Switch to Carlos','Passer à Carlos','Mudar para Carlos','Passa a Carlos','Canvia a Carlos'],
+    'DESARROLLO':['DEVELOPMENT','DÉVELOPPEMENT','DESENVOLVIMENTO','SVILUPPO','DESENVOLUPAMENT'],
+    'Versiones y betas':['Versions and betas','Versions et bêtas','Versões e betas','Versioni e beta','Versions i betes'],
+    'Historial de construcción del S&C Elite ETS2 Hub. Las versiones anteriores están archivadas y finalizadas.':['Build history for S&C Elite ETS2 Hub. Previous versions are archived and complete.','Historique de construction de S&C Elite ETS2 Hub. Les versions précédentes sont archivées et finalisées.','Histórico de versões do S&C Elite ETS2 Hub. As versões anteriores estão arquivadas e concluídas.','Cronologia delle versioni di S&C Elite ETS2 Hub. Le versioni precedenti sono archiviate e completate.','Historial de versions de S&C Elite ETS2 Hub. Les versions anteriors estan arxivades i finalitzades.'],
+    'Actual':['Current','Actuelle','Atual','Attuale','Actual'],
+    'Sesión + Radio S&C Elite + mejoras de interfaz':['Session + S&C Elite Radio + interface improvements','Session + Radio S&C Elite + améliorations d’interface','Sessão + Rádio S&C Elite + melhorias de interface','Sessione + Radio S&C Elite + miglioramenti dell’interfaccia','Sessió + Ràdio S&C Elite + millores d’interfície'],
+    'Versión en curso. Confirmación visual de inicio de sesión hasta «Entendido», selector multilingüe y mejoras de sesión, tema y controles.':['Current version. Visual sign-in confirmation until “Understood”, multilingual selector, and session, theme and controls improvements.','Version en cours. Confirmation visuelle de connexion jusqu’à « Compris », sélecteur multilingue et améliorations de session, thème et contrôles.','Versão em curso. Confirmação visual do início de sessão até “Entendido”, seletor multilingue e melhorias de sessão, tema e controlos.','Versione in corso. Conferma visiva dell’accesso fino a “Capito”, selettore multilingue e miglioramenti di sessione, tema e controlli.','Versió en curs. Confirmació visual d’inici de sessió fins a “Entès”, selector multilingüe i millores de sessió, tema i controls.'],
+    'EN CURSO':['IN PROGRESS','EN COURS','EM CURSO','IN CORSO','EN CURS'],
+    'FINALIZADO':['COMPLETED','TERMINÉ','CONCLUÍDO','COMPLETATO','FINALITZAT'],
+    'CONTENIDO':['CONTENT','CONTENU','CONTEÚDO','CONTENUTO','CONTINGUT'],
+    'Mods de S&C Elite':['S&C Elite Mods','Mods S&C Elite','Mods S&C Elite','Mod S&C Elite','Mods d’S&C Elite'],
+    'Preparado para gestionar tus mods de ETS2 desde el launcher.':['Ready to manage your ETS2 mods from the launcher.','Prêt à gérer vos mods ETS2 depuis le lanceur.','Pronto para gerir os seus mods ETS2 a partir do launcher.','Pronto a gestire i tuoi mod ETS2 dal launcher.','Preparat per gestionar els teus mods d’ETS2 des del llançador.'],
+    'Instalado':['Installed','Installé','Instalado','Installato','Instal·lat'],
+    'Gestor de mods':['Mod manager','Gestionnaire de mods','Gestor de mods','Gestore mod','Gestor de mods'],
+    'En próximas betas podrás detectar, activar y desactivar mods desde el launcher.':['In upcoming betas you will be able to find, enable and disable mods from the launcher.','Dans les prochaines bêtas, vous pourrez détecter, activer et désactiver des mods depuis le lanceur.','Nas próximas betas poderá detetar, ativar e desativar mods a partir do launcher.','Nelle prossime beta potrai rilevare, attivare e disattivare mod dal launcher.','A les properes betes podràs detectar, activar i desactivar mods des del llançador.'],
+    'Próximamente':['Coming soon','Prochainement','Em breve','Prossimamente','Properament'],
+    'Miembros visibles y verificados de la comunidad S&C Elite.':['Visible and verified members of the S&C Elite community.','Membres visibles et vérifiés de la communauté S&C Elite.','Membros visíveis e verificados da comunidade S&C Elite.','Membri visibili e verificati della comunità S&C Elite.','Membres visibles i verificats de la comunitat S&C Elite.'],
+    'Actualizar':['Refresh','Actualiser','Atualizar','Aggiorna','Actualitza'],
+    'Usuarios registrados':['Registered users','Utilisateurs inscrits','Utilizadores registados','Utenti registrati','Usuaris registrats'],
+    'Conectados ahora':['Online now','Connectés maintenant','Ligados agora','Online ora','Connectats ara'],
+    'Verificados':['Verified','Vérifiés','Verificados','Verificati','Verificats'],
+    'Lista de usuarios':['User list','Liste des utilisateurs','Lista de utilizadores','Elenco utenti','Llista d’usuaris'],
+    'usuario':['user','utilisateur','utilizador','utente','usuari'],
+    'usuarios':['users','utilisateurs','utilizadores','utenti','usuaris'],
+    'USUARIO':['USER','UTILISATEUR','UTILIZADOR','UTENTE','USUARI'],
+    'ROL':['ROLE','RÔLE','FUNÇÃO','RUOLO','ROL'],
+    'Datos calculados desde la actividad local de la comunidad.':['Data calculated from local community activity.','Données calculées à partir de l’activité locale de la communauté.','Dados calculados a partir da atividade local da comunidade.','Dati calcolati dall’attività locale della comunità.','Dades calculades a partir de l’activitat local de la comunitat.'],
+    'Conductores':['Drivers','Conducteurs','Condutores','Conducenti','Conductors'],
+    'Kilómetros':['Kilometres','Kilomètres','Quilómetros','Chilometri','Quilòmetres'],
+    'Actividad':['Activity','Activité','Atividade','Attività','Activitat'],
+    'Operativa':['Operational','Opérationnelle','Operacional','Operativa','Operativa'],
+    'Rutas completadas':['Completed routes','Itinéraires terminés','Rotas concluídas','Percorsi completati','Rutes completades'],
+    'Convoys realizados':['Convoys completed','Convois réalisés','Comboios realizados','Convogli effettuati','Convoys realitzats'],
+    'Empresas activas':['Active companies','Entreprises actives','Empresas ativas','Aziende attive','Empreses actives'],
+    'MAPA EN MANTENIMIENTO ·':['MAP UNDER MAINTENANCE ·','CARTE EN MAINTENANCE ·','MAPA EM MANUTENÇÃO ·','MAPPA IN MANUTENZIONE ·','MAPA EN MANTENIMENT ·'],
+    'PROXIMAMENTE':['COMING SOON','PROCHAINEMENT','EM BREVE','PROSSIMAMENTE','PROPERAMENT'],
+    'El mapa de Euro Truck Simulator 2 está temporalmente en mantenimiento mientras terminamos la cartografía, las ciudades y las incidencias DGT. La sección volverá a estar disponible en una próxima versión.':['The Euro Truck Simulator 2 map is temporarily under maintenance while we finish the cartography, cities and DGT incidents. The section will return in a future version.','La carte d’Euro Truck Simulator 2 est temporairement en maintenance pendant que nous finalisons la cartographie, les villes et les incidents DGT. La section reviendra dans une prochaine version.','O mapa de Euro Truck Simulator 2 está temporariamente em manutenção enquanto terminamos a cartografia, as cidades e as incidências DGT. A secção voltará numa próxima versão.','La mappa di Euro Truck Simulator 2 è temporaneamente in manutenzione mentre completiamo cartografia, città e incidenti DGT. La sezione tornerà in una prossima versione.','El mapa d’Euro Truck Simulator 2 està temporalment en manteniment mentre acabem la cartografia, les ciutats i les incidències DGT. La secció tornarà en una propera versió.'],
+    'Mapa ETS2':['ETS2 Map','Carte ETS2','Mapa ETS2','Mappa ETS2','Mapa ETS2'],
+    'Mapa interactivo estilo Euro Truck Simulator 2 con zoom, desplazamiento y puntos de la comunidad.':['Interactive Euro Truck Simulator 2 style map with zoom, pan and community points.','Carte interactive de style Euro Truck Simulator 2 avec zoom, déplacement et points communautaires.','Mapa interativo ao estilo Euro Truck Simulator 2 com zoom, deslocamento e pontos da comunidade.','Mappa interattiva in stile Euro Truck Simulator 2 con zoom, trascinamento e punti della comunità.','Mapa interactiu d’estil Euro Truck Simulator 2 amb zoom, desplaçament i punts de la comunitat.'],
+    'Todo':['All','Tout','Tudo','Tutto','Tot'],
+    'Ajustar':['Fit','Ajuster','Ajustar','Adatta','Ajusta'],
+    '🌍 Países de Europa':['🌍 European countries','🌍 Pays d’Europe','🌍 Países da Europa','🌍 Paesi d’Europa','🌍 Països d’Europa'],
+    'Mapa activo':['Active map','Carte active','Mapa ativo','Mappa attiva','Mapa actiu'],
+    '🚦 Señales DGT':['🚦 DGT signs','🚦 Panneaux DGT','🚦 Sinais DGT','🚦 Segnali DGT','🚦 Senyals DGT'],
+    'Fuente oficial':['Official source','Source officielle','Fonte oficial','Fonte ufficiale','Font oficial'],
+    'Obras':['Roadworks','Travaux','Obras','Lavori','Obres'],
+    'Obstrucción en la calzada':['Obstruction on the road','Obstacle sur la chaussée','Obstrução na estrada','Ostruzione sulla carreggiata','Obstrucció a la calçada'],
+    'Visibilidad reducida':['Reduced visibility','Visibilité réduite','Visibilidade reduzida','Visibilità ridotta','Visibilitat reduïda'],
+    'Hielo o nieve':['Ice or snow','Verglas ou neige','Gelo ou neve','Ghiaccio o neve','Gel o neu'],
+    'Detención obligatoria / STOP':['Mandatory stop / STOP','Arrêt obligatoire / STOP','Paragem obrigatória / STOP','Arresto obbligatorio / STOP','Aturada obligatòria / STOP'],
+    'Empresas y VTC activas dentro de S&C Elite.':['Active companies and VTCs within S&C Elite.','Entreprises et VTC actifs dans S&C Elite.','Empresas e VTC ativas dentro da S&C Elite.','Aziende e VTC attive in S&C Elite.','Empreses i VTC actives dins d’S&C Elite.'],
+    '+ Nueva empresa':['+ New company','+ Nouvelle entreprise','+ Nova empresa','+ Nuova azienda','+ Empresa nova'],
+    'EMPRESA':['COMPANY','ENTREPRISE','EMPRESA','AZIENDA','EMPRESA'],
+    'TIPO':['TYPE','TYPE','TIPO','TIPO','TIPUS'],
+    'Convoys, reuniones y actividades de S&C Elite.':['Convoys, meetings and S&C Elite activities.','Convois, réunions et activités de S&C Elite.','Comboios, reuniões e atividades da S&C Elite.','Convogli, riunioni e attività di S&C Elite.','Convoys, reunions i activitats d’S&C Elite.'],
+    '+ Nuevo evento':['+ New event','+ Nouvel événement','+ Novo evento','+ Nuovo evento','+ Esdeveniment nou'],
+    'EVENTO':['EVENT','ÉVÉNEMENT','EVENTO','EVENTO','ESDEVENIMENT'],
+    'LUGAR':['PLACE','LIEU','LOCAL','LUOGO','LLOC'],
+    'Compra y consulta vehículos, remolques y servicios disponibles para S&C Elite.':['Buy and view vehicles, trailers and services available for S&C Elite.','Achetez et consultez les véhicules, remorques et services disponibles pour S&C Elite.','Compre e consulte veículos, reboques e serviços disponíveis para a S&C Elite.','Acquista e consulta veicoli, rimorchi e servizi disponibili per S&C Elite.','Compra i consulta vehicles, remolcs i serveis disponibles per a S&C Elite.'],
+    'Actualizar mercado':['Refresh market','Actualiser le marché','Atualizar mercado','Aggiorna mercato','Actualitza el mercat'],
+    'MERCADO WEB EN MANTENIMIENTO ·':['WEB MARKET UNDER MAINTENANCE ·','MARCHÉ WEB EN MAINTENANCE ·','MERCADO WEB EM MANUTENÇÃO ·','MERCATO WEB IN MANUTENZIONE ·','MERCAT WEB EN MANTENIMENT ·'],
+    'El Mercado Web de S&C Elite Convoys está temporalmente en mantenimiento mientras realizamos mejoras para ofrecer un servicio más estable, seguro y completo. Volverá a estar disponible próximamente.':['The S&C Elite Convoys Web Market is temporarily under maintenance while we improve it to offer a more stable, secure and complete service. It will return soon.','Le Marché Web de S&C Elite Convoys est temporairement en maintenance pendant que nous l’améliorons pour offrir un service plus stable, sûr et complet. Il reviendra prochainement.','O Mercado Web da S&C Elite Convoys está temporariamente em manutenção enquanto realizamos melhorias para oferecer um serviço mais estável, seguro e completo. Voltará em breve.','Il Mercato Web di S&C Elite Convoys è temporaneamente in manutenzione per offrire un servizio più stabile, sicuro e completo. Tornerà presto.','El Mercat Web d’S&C Elite Convoys està temporalment en manteniment mentre fem millores per oferir un servei més estable, segur i complet. Tornarà properament.'],
+    'PROTECCIÓN DE FLOTA':['FLEET PROTECTION','PROTECTION DE FLOTTE','PROTEÇÃO DE FROTA','PROTEZIONE DELLA FLOTTA','PROTECCIÓ DE FLOTA'],
+    'Seguros de S&C Elite':['S&C Elite Insurance','Assurance S&C Elite','Seguros S&C Elite','Assicurazione S&C Elite','Assegurances d’S&C Elite'],
+    'Pólizas de camiones y remolques, accidentes de empleados y partes.':['Truck and trailer policies, employee accidents and claims.','Polices de camions et remorques, accidents des employés et sinistres.','Apólices de camiões e reboques, acidentes de funcionários e participações.','Polizze per camion e rimorchi, infortuni dei dipendenti e sinistri.','Pòlisses de camions i remolcs, accidents d’empleats i parts.'],
+    'ASEGURADORA EN MANTENIMIENTO ·':['INSURANCE UNDER MAINTENANCE ·','ASSURANCE EN MAINTENANCE ·','SEGUROS EM MANUTENÇÃO ·','ASSICURAZIONE IN MANUTENZIONE ·','ASSEGURADORA EN MANTENIMENT ·'],
+    'La sección de Aseguradora está temporalmente en mantenimiento mientras realizamos mejoras y ajustes para ofrecer un servicio de protección de flota más estable y completo. Volverá a estar disponible próximamente.':['The Insurance section is temporarily under maintenance while we make improvements to offer a more stable, complete fleet-protection service. It will return soon.','La section Assurance est temporairement en maintenance pendant que nous apportons des améliorations afin d’offrir un service de protection de flotte plus stable et complet. Elle reviendra prochainement.','A secção de Seguros está temporariamente em manutenção enquanto fazemos melhorias para oferecer um serviço de proteção de frota mais estável e completo. Voltará em breve.','La sezione Assicurazione è temporaneamente in manutenzione per offrire un servizio di protezione della flotta più stabile e completo. Tornerà presto.','La secció d’Asseguradora està temporalment en manteniment mentre fem millores per oferir un servei de protecció de flota més estable i complet. Tornarà properament.'],
+    'Radio propia · señal musical integrada':['Own radio · integrated music signal','Radio propre · signal musical intégré','Rádio própria · sinal musical integrado','Radio propria · segnale musicale integrato','Ràdio pròpia · senyal musical integrat'],
+    'Esperando canción…':['Waiting for a song…','En attente d’un morceau…','À espera de música…','In attesa di una canzone…','Esperant una cançó…'],
+    'Abrir radio':['Open radio','Ouvrir la radio','Abrir rádio','Apri radio','Obre la ràdio'],
+    'Dueño de la empresa':['Company owner','Propriétaire de l’entreprise','Proprietário da empresa','Proprietario dell’azienda','Propietari de l’empresa'],
+    'Cuenta bancaria':['Bank account','Compte bancaire','Conta bancária','Conto bancario','Compte bancari'],
+    'Camiones y remolques':['Trucks and trailers','Camions et remorques','Camiões e reboques','Camion e rimorchi','Camions i remolcs'],
+    'Economía':['Economy','Économie','Economia','Economia','Economia'],
+    'Gastos y beneficios':['Expenses and profit','Dépenses et bénéfices','Despesas e lucro','Spese e profitto','Despeses i beneficis'],
+    'Entregas':['Deliveries','Livraisons','Entregas','Consegne','Lliuraments'],
+    'Rutas y beneficio neto':['Routes and net profit','Itinéraires et bénéfice net','Rotas e lucro líquido','Percorsi e profitto netto','Rutes i benefici net'],
+    'Chat':['Chat','Chat','Chat','Chat','Xat'],
+    'ahora':['now','maintenant','agora','ora','ara'],
+    'sistema':['system','système','sistema','sistema','sistema'],
+    'Bienvenido al centro de control de S&C Elite.':['Welcome to the S&C Elite control center.','Bienvenue au centre de contrôle S&C Elite.','Bem-vindo ao centro de controlo da S&C Elite.','Benvenuto nel centro di controllo S&C Elite.','Benvingut al centre de control d’S&C Elite.'],
+    'La radio FM 9.90 se reproduce directamente dentro de S&C Elite.':['FM 9.90 radio plays directly within S&C Elite.','La radio FM 9.90 est lue directement dans S&C Elite.','A rádio FM 9.90 é reproduzida diretamente na S&C Elite.','La radio FM 9.90 viene riprodotta direttamente in S&C Elite.','La ràdio FM 9.90 es reprodueix directament dins d’S&C Elite.'],
+    'CONFIRMACIÓN':['CONFIRMATION','CONFIRMATION','CONFIRMAÇÃO','CONFERMA','CONFIRMACIÓ'],
+    'Operación completada':['Operation completed','Opération terminée','Operação concluída','Operazione completata','Operació completada'],
+    'Sesión iniciada.':['Session started.','Session ouverte.','Sessão iniciada.','Sessione avviata.','Sessió iniciada.'],
+    'Entendido':['Understood','Compris','Entendido','Capito','Entès'],
+    'Nueva empresa':['New company','Nouvelle entreprise','Nova empresa','Nuova azienda','Empresa nova'],
+    'Nombre de la empresa':['Company name','Nom de l’entreprise','Nome da empresa','Nome dell’azienda','Nom de l’empresa'],
+    'Tipo':['Type','Type','Tipo','Tipo','Tipus'],
+    'Logística':['Logistics','Logistique','Logística','Logistica','Logística'],
+    'Autónomo':['Self-employed','Indépendant','Trabalhador independente','Autonomo','Autònom'],
+    'Crear empresa':['Create company','Créer une entreprise','Criar empresa','Crea azienda','Crea empresa'],
+    'Nuevo evento':['New event','Nouvel événement','Novo evento','Nuovo evento','Esdeveniment nou'],
+    'En curso':['In progress','En cours','Em curso','In corso','En curs'],
+    'Programado':['Scheduled','Programmé','Agendado','Programmato','Programat'],
+    'Finalizado':['Completed','Terminé','Concluído','Completato','Finalitzat'],
+    '¿Dónde se hace?':['Where does it take place?','Où a-t-il lieu ?','Onde se realiza?','Dove si svolge?','On es fa?'],
+    'Reunión de la comunidad':['Community meeting','Réunion de la communauté','Reunião da comunidade','Riunione della comunità','Reunió de la comunitat'],
+    'Modificar / Guardar':['Edit / Save','Modifier / Enregistrer','Editar / Guardar','Modifica / Salva','Modifica / Desa'],
+    'COMUNIDAD · CONTROL · SEGURIDAD':['COMMUNITY · CONTROL · SECURITY','COMMUNAUTÉ · CONTRÔLE · SÉCURITÉ','COMUNIDADE · CONTROLO · SEGURANÇA','COMUNITÀ · CONTROLLO · SICUREZZA','COMUNITAT · CONTROL · SEGURETAT'],
+    'Tu actividad de ETS2, protegida y siempre bajo control.':['Your ETS2 activity, protected and always under control.','Votre activité ETS2, protégée et toujours sous contrôle.','A sua atividade ETS2, protegida e sempre sob controlo.','La tua attività ETS2, protetta e sempre sotto controllo.','La teva activitat d’ETS2, protegida i sempre sota control.'],
+    'Accede a tu perfil privado, consulta las versiones validadas y gestiona tu cuenta S&C Elite.':['Access your private profile, review validated versions and manage your S&C Elite account.','Accédez à votre profil privé, consultez les versions validées et gérez votre compte S&C Elite.','Aceda ao seu perfil privado, consulte as versões validadas e faça a gestão da sua conta S&C Elite.','Accedi al tuo profilo privato, consulta le versioni convalidate e gestisci il tuo account S&C Elite.','Accedeix al teu perfil privat, consulta les versions validades i gestiona el teu compte d’S&C Elite.'],
+    '✓ Perfil privado':['✓ Private profile','✓ Profil privé','✓ Perfil privado','✓ Profilo privato','✓ Perfil privat'],
+    '✓ Historial central':['✓ Central history','✓ Historique central','✓ Histórico central','✓ Cronologia centrale','✓ Historial central'],
+    '✓ Copias seguras':['✓ Secure backups','✓ Sauvegardes sécurisées','✓ Cópias seguras','✓ Backup sicuri','✓ Còpies segures'],
+    'BIENVENIDO':['WELCOME','BIENVENUE','BEM-VINDO','BENVENUTO','BENVINGUT'],
+    'Iniciar sesión':['Sign in','Se connecter','Iniciar sessão','Accedi','Inicia sessió'],
+    'Usuario o correo':['Username or email','Nom d’utilisateur ou e-mail','Utilizador ou e-mail','Utente o e-mail','Usuari o correu'],
+    'Contraseña':['Password','Mot de passe','Palavra-passe','Password','Contrasenya'],
+    'Recordar usuario y contraseña':['Remember username and password','Mémoriser le nom d’utilisateur et le mot de passe','Lembrar utilizador e palavra-passe','Ricorda utente e password','Recorda usuari i contrasenya'],
+    'La cuenta se guarda de forma local en este equipo.':['The account is stored locally on this computer.','Le compte est enregistré localement sur cet ordinateur.','A conta é guardada localmente neste computador.','L’account viene salvato localmente su questo computer.','El compte es desa localment en aquest ordinador.'],
+    'Entrar al portal':['Enter portal','Accéder au portail','Entrar no portal','Accedi al portale','Entra al portal'],
+    'He olvidado mi contraseña':['I forgot my password','J’ai oublié mon mot de passe','Esqueci-me da palavra-passe','Ho dimenticato la password','He oblidat la contrasenya'],
+    'NUEVO CONDUCTOR':['NEW DRIVER','NOUVEAU CONDUCTEUR','NOVO CONDUTOR','NUOVO CONDUCENTE','CONDUCTOR NOU'],
+    'Crear cuenta':['Create account','Créer un compte','Criar conta','Crea account','Crea compte'],
+    'Nombre de usuario':['Username','Nom d’utilisateur','Nome de utilizador','Nome utente','Nom d’usuari'],
+    'Nombre visible':['Display name','Nom affiché','Nome visível','Nome visualizzato','Nom visible'],
+    'Correo electrónico':['Email','E-mail','E-mail','E-mail','Correu electrònic'],
+    'Confirmar contraseña':['Confirm password','Confirmer le mot de passe','Confirmar palavra-passe','Conferma password','Confirma la contrasenya'],
+    'Crear mi cuenta':['Create my account','Créer mon compte','Criar a minha conta','Crea il mio account','Crea el meu compte'],
+    'Después podrás verificar tu correo y acceder al portal.':['You can then verify your email and access the portal.','Vous pourrez ensuite vérifier votre e-mail et accéder au portail.','Depois poderá verificar o seu e-mail e aceder ao portal.','Potrai poi verificare la tua e-mail e accedere al portale.','Després podràs verificar el teu correu i accedir al portal.'],
+    'Recuperar contraseña':['Recover password','Récupérer le mot de passe','Recuperar palavra-passe','Recupera password','Recupera la contrasenya'],
+    'Accede al Hub de Saske. La sesión se guarda localmente en este equipo.':['Access Saske’s Hub. The session is stored locally on this computer.','Accédez au Hub de Saske. La session est enregistrée localement sur cet ordinateur.','Aceda ao Hub de Saske. A sessão é guardada localmente neste computador.','Accedi all’Hub di Saske. La sessione viene salvata localmente su questo computer.','Accedeix al Hub de Saske. La sessió es desa localment en aquest ordinador.'],
+    'Escribe las 6 cifras':['Enter the 6 digits','Saisissez les 6 chiffres','Introduza os 6 dígitos','Inserisci le 6 cifre','Escriu les 6 xifres'],
+    'Código confirmado correctamente.':['Code confirmed successfully.','Code confirmé correctement.','Código confirmado corretamente.','Codice confermato correttamente.','Codi confirmat correctament.'],
+    'Nueva contraseña':['New password','Nouveau mot de passe','Nova palavra-passe','Nuova password','Contrasenya nova'],
+    'Confirmación de recuperación de contraseña con éxito.':['Password recovery confirmed successfully.','Récupération du mot de passe confirmée avec succès.','Recuperação da palavra-passe confirmada com sucesso.','Recupero della password confermato con successo.','Recuperació de contrasenya confirmada correctament.'],
+    'Confirmar cuenta':['Confirm account','Confirmer le compte','Confirmar conta','Conferma account','Confirma el compte'],
+    'Regenerar código':['Regenerate code','Régénérer le code','Gerar novo código','Rigenera codice','Regenera el codi'],
+    'Recuperación de contraseña completada con éxito.':['Password recovery completed successfully.','Récupération du mot de passe terminée avec succès.','Recuperação da palavra-passe concluída com sucesso.','Recupero della password completato con successo.','Recuperació de contrasenya completada correctament.'],
+    'Volver a iniciar sesión':['Back to sign in','Retour à la connexion','Voltar a iniciar sessão','Torna all’accesso','Torna a iniciar sessió'],
+    'Confirmar correo':['Confirm email','Confirmer l’e-mail','Confirmar e-mail','Conferma e-mail','Confirma el correu'],
+    'Código enviado a':['Code sent to','Code envoyé à','Código enviado para','Codice inviato a','Codi enviat a'],
+    'Introduce el código':['Enter the code','Saisissez le code','Introduza o código','Inserisci il codice','Introdueix el codi'],
+    'Abrir Gmail otra vez':['Open Gmail again','Ouvrir Gmail à nouveau','Abrir Gmail novamente','Apri di nuovo Gmail','Obre Gmail de nou'],
+    'Cerrar sesión':['Sign out','Se déconnecter','Terminar sessão','Disconnetti','Tanca sessió'],
+    'Sin sesión':['Signed out','Déconnecté','Sem sessão','Disconnesso','Sense sessió'],
+    'Seleccionar idioma':['Select language','Choisir la langue','Selecionar idioma','Seleziona lingua','Selecciona l’idioma'],
+    'Cambiar entre modo oscuro y claro':['Switch between dark and light mode','Basculer entre les modes sombre et clair','Alternar entre modo escuro e claro','Passa tra modalità scura e chiara','Canvia entre el mode fosc i clar'],
+    'Volumen':['Volume','Volume','Volume','Volume','Volum'],
+    'Reproducir':['Play','Lecture','Reproduzir','Riproduci','Reprodueix'],
+    'Pausa':['Pause','Pause','Pausa','Pausa','Pausa'],
+    'Detener':['Stop','Arrêter','Parar','Ferma','Atura'],
+    'Comunidad':['Community','Communauté','Comunidade','Comunità','Comunitat'],
+    'Favorito':['Favourite','Favori','Favorito','Preferito','Preferit'],
+    'Premios':['Awards','Prix','Prémios','Premi','Premis'],
+    'Anterior':['Previous','Précédent','Anterior','Precedente','Anterior'],
+    'Enviar un mensaje':['Send a message','Envoyer un message','Enviar uma mensagem','Invia un messaggio','Envia un missatge'],
+    'Se buscará automáticamente en Steam...':['It will be found automatically in Steam…','Recherche automatique dans Steam…','Será procurado automaticamente no Steam…','Verrà cercato automaticamente su Steam…','Es buscarà automàticament a Steam…']
+  };
+
+  let current='es';
+  const originals=new Map();
+  const originalAttributes=new Map();
+  const picker=document.getElementById('languagePicker');
+  const trigger=document.getElementById('languageTrigger');
+  const menu=document.getElementById('languageMenu');
+  const flag=document.getElementById('languageFlag');
+  const name=document.getElementById('languageName');
+  const options=picker ? [...picker.querySelectorAll('[data-language]')] : [];
+  const translatableAttributes=['title','placeholder','aria-label','alt'];
+
+  function textFor(source, language=current){
+    const index=languageIndex[language];
+    return index===undefined ? source : (catalog[source]?.[index] || source);
+  }
+  function excluded(node){
+    const element=node.nodeType===1 ? node : node.parentElement;
+    return !element || Boolean(element.closest('script, style, .languagePicker'));
+  }
+  function capture(root){
+    if(!root || excluded(root)) return;
+    const inspect=node=>{
+      if(node.nodeType===3){
+        if(!excluded(node) && !originals.has(node)) originals.set(node,node.nodeValue);
+        return;
+      }
+      if(node.nodeType!==1 || excluded(node)) return;
+      translatableAttributes.forEach(attribute=>{
+        if(node.hasAttribute(attribute)){
+          const values=originalAttributes.get(node)||{};
+          if(!(attribute in values)) values[attribute]=node.getAttribute(attribute);
+          originalAttributes.set(node,values);
+        }
+      });
+      node.childNodes.forEach(inspect);
+    };
+    inspect(root);
+  }
+  function translateCaptured(root){
+    const scope=root && root.nodeType===1 ? root : document.body;
+    originals.forEach((source,node)=>{
+      if(!node.isConnected || !scope.contains(node) || excluded(node)) return;
+      const key=source.trim();
+      if(!key) return;
+      const before=source.slice(0,source.indexOf(key));
+      const after=source.slice(source.indexOf(key)+key.length);
+      node.nodeValue=before+textFor(key)+after;
+    });
+    originalAttributes.forEach((values,element)=>{
+      if(!element.isConnected || !scope.contains(element) || excluded(element)) return;
+      Object.entries(values).forEach(([attribute,source])=>element.setAttribute(attribute,textFor(source)));
+    });
+  }
+  function updateCountries(){
+    document.querySelectorAll('.countryChip').forEach(chip=>{
+      const source=[...originals.entries()].find(([node])=>node.parentElement===chip)?.[1] || chip.textContent;
+      const flagMatch=source.match(/^\s*([\u{1F1E6}-\u{1F1FF}]{2})/u);
+      if(!flagMatch) return;
+      const code=[...flagMatch[1]].map(symbol=>String.fromCodePoint(symbol.codePointAt(0)-0x1F1A6+65)).join('');
+      try{
+        const country=new Intl.DisplayNames([languages[current].locale],{type:'region'}).of(code);
+        chip.textContent=flagMatch[1]+' '+country;
+      }catch{}
+    });
+  }
+  function updateThemeLabel(){
+    const theme=document.body.getAttribute('data-theme')==='light'?'light':'dark';
+    const themeLabels={
+      es:{light:'🌙 Oscuro',dark:'☀️ Claro'},en:{light:'🌙 Dark',dark:'☀️ Light'},fr:{light:'🌙 Sombre',dark:'☀️ Clair'},
+      pt:{light:'🌙 Escuro',dark:'☀️ Claro'},it:{light:'🌙 Scuro',dark:'☀️ Chiaro'},ca:{light:'🌙 Fosc',dark:'☀️ Clar'}
+    };
+    const button=document.getElementById('themeToggle');
+    if(button) button.textContent=themeLabels[current][theme];
+  }
+  function updateSessionLabel(){
+    const button=document.getElementById('sessionBtn');
+    if(!button) return;
+    const authenticated=localStorage.getItem('scelite_auth')==='1' || localStorage.getItem('scelite_auth_verified')==='1';
+    button.textContent=textFor(authenticated?'Cerrar sesión':'Iniciar sesión');
+  }
+  function setMenu(open){
+    if(!menu || !trigger) return;
+    menu.hidden=!open;
+    trigger.setAttribute('aria-expanded',String(open));
+  }
+  function setLanguage(language,{focus=false}={}){
+    if(!languages[language]) language='es';
+    current=language;
+    localStorage.setItem(LANGUAGE_KEY,current);
+    document.documentElement.lang=current;
+    document.documentElement.dir='ltr';
+    document.title=languages[current].pageTitle;
+    document.body.dataset.language=current;
+    capture(document.body);
+    translateCaptured(document.body);
+    updateCountries();
+    document.querySelectorAll('.maintenancePreview').forEach(preview=>preview.dataset.maintenanceLabel=textFor('PROXIMAMENTE'));
+    if(flag) flag.textContent=languages[current].flag;
+    if(name) name.textContent=languages[current].name;
+    if(trigger){
+      const label=textFor('Seleccionar idioma');
+      trigger.setAttribute('aria-label',label);
+      if(menu) menu.setAttribute('aria-label',label);
+    }
+    options.forEach(option=>option.setAttribute('aria-selected',String(option.dataset.language===current)));
+    updateThemeLabel();
+    updateSessionLabel();
+    window.scI18n={language:current,t:textFor,translate:()=>{capture(document.body);translateCaptured(document.body);updateCountries();}};
+    window.dispatchEvent(new CustomEvent('scelite:languagechange',{detail:{language:current}}));
+    setMenu(false);
+    if(focus) trigger?.focus();
+  }
+  function focusOption(direction){
+    const selected=Math.max(0,options.findIndex(option=>option.dataset.language===current));
+    options[(selected+direction+options.length)%options.length]?.focus();
+  }
+  function bindPicker(){
+    if(!picker || !trigger || !menu) return;
+    trigger.addEventListener('click',()=>setMenu(menu.hidden));
+    trigger.addEventListener('keydown',event=>{
+      if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();setMenu(true);focusOption(event.key==='ArrowDown'?1:-1);}
+      if(event.key==='Escape') setMenu(false);
+    });
+    options.forEach(option=>{
+      option.addEventListener('click',()=>setLanguage(option.dataset.language,{focus:true}));
+      option.addEventListener('keydown',event=>{
+        if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();focusOption(event.key==='ArrowDown'?1:-1);}
+        if(event.key==='Escape'){setMenu(false);trigger.focus();}
+      });
+    });
+    document.addEventListener('pointerdown',event=>{if(!picker.contains(event.target)) setMenu(false);});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape') setMenu(false);});
+  }
+  function observeNewContent(){
+    const observer=new MutationObserver(records=>{
+      records.forEach(record=>record.addedNodes.forEach(node=>{
+        if(node.nodeType!==1 && node.nodeType!==3) return;
+        capture(node);
+        translateCaptured(node.nodeType===1?node:node.parentElement);
+      }));
+    });
+    observer.observe(document.body,{childList:true,subtree:true});
+  }
+  function initialise(){
+    bindPicker();
+    observeNewContent();
+    setLanguage(localStorage.getItem(LANGUAGE_KEY)||'es');
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initialise,{once:true}); else initialise();
+})();
+
+</script>
